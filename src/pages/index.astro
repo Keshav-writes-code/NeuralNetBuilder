@@ -1,4 +1,6 @@
 ---
+import Everything from "../components/everything.svelte"
+
 
 ---
 
@@ -11,6 +13,7 @@
 		<title>Astro</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<Everything client:only="svelte"/>
+		
 	</body>
 </html>

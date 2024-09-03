@@ -4,10 +4,10 @@
         bias: number;
         weights: number[];
 
-        constructor(nextLayer_neurons: number) {
+        constructor(prevLayer_neurons: number) {
             this.value = 0;
             this.bias = 0;
-            this.weights = new Array(nextLayer_neurons).fill(0);
+            this.weights = new Array(prevLayer_neurons).fill(1);
         }
         show() {
             console.log(this);
@@ -16,38 +16,49 @@
 
     class layer {
         neurons: Neuron[];
-        constructor(size: number, nextLayerSize: number) {
+        constructor(size: number, prevLayerSize: number) {
             this.neurons = new Array(size)
                 .fill(0)
-                .map(() => new Neuron(nextLayerSize));
+                .map(() => new Neuron(prevLayerSize));
         }
         show() {
             console.log(this.neurons);
         }
     }
 
+    //---------------------------------------------
+    // Setting up the Input, Hidden & Output Layers
+    //---------------------------------------------
+    
+    // Hidden Layers
     let hiddenLayersCount = 1;
     let hiddenLayersNeuronCount: number[] = [1];
-    let NNlayers: layer[];
+    let hiddenLayers: layer[];
+    
+    // I/O Layers
+    let inputLayer = new layer(1, 0);
+    let outputLayer = new layer(1, hiddenLayersNeuronCount[hiddenLayersNeuronCount.length - 1]);
+    
+    // Reactivity Stuff
     $: {
-        NNlayers = new Array(hiddenLayersCount).fill(0).map((_, i) => {
+        hiddenLayers = new Array(hiddenLayersCount).fill(0).map((_, i) => {
             return new layer(
                 hiddenLayersNeuronCount[i],
-                hiddenLayersNeuronCount[i + 1]
+                hiddenLayersNeuronCount[i - 1] || 1
             );
         });
     }
-
+    let currentNeuron: Neuron |null = null;
+    
     function neuralNetwork(x: number) {
         let result = 0;
-        // NNlayers.forEach((layer) => {
+        // hiddenLayers.forEach((layer) => {
         //     result += layer.neurons[0].value;
         // })
         return result;
     }
 
-    let currentNeuron: Neuron  = new Neuron(0);
-    currentNeuron.weights
+
     // ---------------------------------------
     // -------------- Plotting ---------------
     // ---------------------------------------
@@ -113,40 +124,77 @@
     <section class="w-full grid grid-cols-2 place-items-center">
         <div class=" w-full max-w-xl p-10 shadow-2xl">
             
-            
+            {#if currentNeuron}
             <label class="form-control">
                 <div class="label">
                     <span class="label-text">Bias</span>
                     <span class="label-text-alt">Value = {currentNeuron.bias}</span>
-                    <span class="label-text-alt">-1 to 1</span>
+                    <span class="label-text-alt">-10 to 10</span>
                 </div>
                 <input
                     type="range"
-                    min="0"
-                    max="1"
+                    min="-10"
+                    max="10"
                     step="0.01"
                     class="range range-lg w-full"
                     bind:value={currentNeuron.bias}
                 />
             </label>
+            {:else}
+            <h1>Select a Neuron</h1>
+            <label class="form-control opacity-50 ">
+                <div class="label">
+                    <span class="label-text">Bias</span>
+                    <span class="label-text-alt">Value Nothing</span>
+                    <span class="label-text-alt">-∞ to ∞</span>
+                </div>
+                <input
+                    type="range"
+                    min="-10"
+                    max="10"
+                    step="0.01"
+                    class="range range-lg w-full  "
+                    disabled
+                />
+            </label>
+            {/if}
+
             <div class="divider"></div>
-            {#each currentNeuron.weights as _, i}
-                <label class="form-control">
+            {#if currentNeuron}
+                {#each currentNeuron.weights as _, i}
+                    <label class="form-control">
+                        <div class="label">
+                            <span class="label-text">Weight {i+1}</span>
+                            <span class="label-text-alt">Value = {currentNeuron.weights[i]}</span>
+                            <span class="label-text-alt">-10 to 10</span>
+                        </div>
+                        <input
+                            type="range"
+                            min="-10"
+                            max="10"
+                            step="0.01"
+                            class="range range-lg w-full"
+                            bind:value={currentNeuron.weights[i]}
+                        />
+                    </label>
+                {/each}
+            {:else}
+                <label class="form-control opacity-50 ">
                     <div class="label">
-                        <span class="label-text">Weight {i+1}</span>
-                        <span class="label-text-alt">Value = {currentNeuron.weights[i]}</span>
-                        <span class="label-text-alt">-1 to 1</span>
+                        <span class="label-text">Weight None</span>
+                        <span class="label-text-alt">Value = Nothing</span>
+                        <span class="label-text-alt">-∞ to ∞</span>
                     </div>
                     <input
                         type="range"
-                        min="0"
-                        max="1"
+                        min="-10"
+                        max="10"
                         step="0.01"
                         class="range range-lg w-full"
-                        bind:value={currentNeuron.weights[i]}
+                        disabled
                     />
                 </label>
-            {/each}
+            {/if}
         </div>
         <div class="w-800px shadow-xl">
             <canvas id="functionChart"></canvas>
@@ -369,7 +417,7 @@
                             <button
                                 class="btn btn-success size-min"
                                 on:click={() => {
-                                    currentNeuron = NNlayers[i].neurons[i2];
+                                    currentNeuron = hiddenLayers[i].neurons[i2];
                                     console.log(
                                         currentNeuron
                                     );

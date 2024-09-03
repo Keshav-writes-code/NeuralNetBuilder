@@ -39,6 +39,9 @@
     let inputLayer = new layer(1, 0);
     let outputLayer = new layer(1, hiddenLayersNeuronCount[hiddenLayersNeuronCount.length - 1]);
     
+    // Hidden & Output Layer Combined
+    let hidOutLayers: layer[];
+
     // Reactivity Stuff
     $: {
         hiddenLayers = new Array(hiddenLayersCount).fill(0).map((_, i) => {
@@ -47,17 +50,28 @@
                 hiddenLayersNeuronCount[i - 1] || 1
             );
         });
+        hidOutLayers = [...hiddenLayers, outputLayer];
     }
     let currentNeuron: Neuron |null = null;
     
     function neuralNetwork(x: number) {
         let result = 0;
-        // hiddenLayers.forEach((layer) => {
-        //     result += layer.neurons[0].value;
-        // })
+        hidOutLayers.forEach((layer) => {
+            
+            let neuronOut = 0;
+            layer.neurons.forEach((neuron) => {
+                let weightedSum = 0;
+                neuron.weights.forEach(weight => {
+                    weightedSum += weight * x;
+                })
+                neuronOut = Math.max(0, weightedSum + neuron.bias);
+            })
+            result += neuronOut
+        })
         return result;
     }
 
+    
 
     // ---------------------------------------
     // -------------- Plotting ---------------
@@ -110,19 +124,16 @@
                 },
             },
         });
-
-        // Example of updating data
-        setTimeout(() => {
-            updateYValues();
+        updateYValues();
             chart.data.datasets[0].data = yValues;
             chart.update();
-        }, 2000); // Update chart data after 2 seconds
+        
     });
 </script>
 
 <main class="w-full grid place-items-center *:px-10 py-10">
     <section class="w-full grid grid-cols-2 place-items-center">
-        <div class=" w-full max-w-xl p-10 shadow-2xl">
+        <div class=" w-full max-w-xl p-10 shadow-2xl relative">
             
             {#if currentNeuron}
             <label class="form-control">
@@ -141,7 +152,7 @@
                 />
             </label>
             {:else}
-            <h1>Select a Neuron</h1>
+            <h1 class="text-2xl absolute top-4" >Select a Neuron</h1>
             <label class="form-control opacity-50 ">
                 <div class="label">
                     <span class="label-text">Bias</span>

@@ -46,12 +46,12 @@
 
 </script>
 
-<main class="w-full grid place-items-center">
+<main class="w-full grid place-items-center *:px-10">
     <section>
         <div id="plot" class="" ></div>
     </section>
     <!-- Neural Network DIagram -->
-    <section class=" grid place-items-center ">
+    <section class=" grid place-items-center w-full ">
         <div class="my-2 flex items-center justify-between gap-10">
             <h1 class="text-3xl " >Neural Network</h1>
             <!-- <div class="divider divider-horizontal"></div> -->
@@ -128,7 +128,7 @@
             </div>
         </div>
 
-        <div class="flex gap-8 h-[658px] b-gray-700 b-2 py-8 px-10 rounded-lg box-content">
+        <div class="flex sm:gap-8 h-[658px] b-gray-700 b-2 py-8 px-10 rounded-lg sm:box-content  box-border max-w-[1444px] w-full">
             <div class=" flex flex-col gap-2 items-center">
                 <div
                     class="py-2 px-3 inline-block  border rounded-lg bg-neutral-900 border-neutral-700"
@@ -177,7 +177,7 @@
                 </button>
             </div>
             <div class="divider divider-horizontal "></div>
-            <div class="flex flex gap-8 w-[1104px]  ">
+            <div class="flex gap-8 sm:max-w-[1104px] sm:w-full overflow-x-auto w-[180px]  ">
                 {#each { length: inputLayersCount  } as _, i}
                     <div class=" flex flex-col gap-2 items-center">
                         <div
@@ -327,11 +327,8 @@
             </div>
         </div>
     </section>
-    <section>
-        
-    </section>
-    <section>
-        <div class=" p-10 shadow-2xl mt-10" >
+    <section class="w-full grid place-items-center" >
+        <div class=" w-full max-w-xl p-10 shadow-2xl mt-10" >
             <label class="form-control ">
                 <div class="label">
                     <span class="label-text">Weight</span>
@@ -347,7 +344,7 @@
                     min="0"
                     max="1"
                     step="0.01"
-                    class="range range-lg w-200"
+                    class="range range-lg w-full"
                 />
             </label>
             <label class="form-control ">
@@ -365,7 +362,7 @@
                     min="0"
                     max="1"
                     step="0.01"
-                    class="range range-lg w-200"
+                    class="range range-lg w-full "
                 />
             </label>
         </div>

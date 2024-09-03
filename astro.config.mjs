@@ -2,7 +2,7 @@
 import { defineConfig } from 'astro/config'
 import UnoCSS from 'unocss/astro'
 import { presetUno } from 'unocss'
-import { presetDaisy } from '@unscatty/unocss-preset-daisy'
+import {presetDaisy} from 'unocss-preset-daisy'
 import svelte from '@astrojs/svelte';
 
 export default defineConfig({
@@ -10,9 +10,7 @@ export default defineConfig({
         UnoCSS({
             presets: [
                 presetUno(),
-                presetDaisy({
-
-                })
+                presetDaisy()
             ],
             injectReset: true // or a path to the reset file
         }),

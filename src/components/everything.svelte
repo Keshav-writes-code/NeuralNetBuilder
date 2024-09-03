@@ -1,6 +1,4 @@
 <script lang="ts">
-    import Plotly from "plotly.js-dist";
-
     class neuron {
         value: number;
         bias: number;
@@ -27,31 +25,128 @@
             console.log(this.neurons);
         }
     }
-    let inputLayersCount = 1;
-    let inputLayersNeuronCount: number[] = [1];
-    let NNlayers = new Array(inputLayersCount).fill(0).map(() => {
-        inputLayersNeuronCount.forEach((_, i) => {
-            
-            return new layer(inputLayersNeuronCount[i], inputLayersNeuronCount[i+1])
-        })
+
+    let hiddenLayersCount = 1;
+    let hiddenLayersNeuronCount: number[] = [1];
+    let NNlayers: layer[] = new Array(hiddenLayersCount).fill(0).map((_, i) => {
+        return new layer(hiddenLayersNeuronCount[i], hiddenLayersNeuronCount[i+1])
     });
 
     function neuralNetwork(x: number) {
         let result = 0;
-        NNlayers.forEach((layer) => {
-            result += layer.neurons[0].value;
-        })
+        // NNlayers.forEach((layer) => {
+        //     result += layer.neurons[0].value;
+        // })
         return result;
     }
 
+    let currentNeuron: neuron | null = null
+
+    
+    // ---------------------------------------
+    // -------------- Plotting ---------------
+    // ---------------------------------------
+    import { onMount } from 'svelte';
+    import { Chart } from 'chart.js/auto';
+
+    let chart;
+    let xValues = [];
+    let yValues = [];
+    const range = 10;
+
+    // Function to generate new y values based on x values
+    function updateYValues() {
+        yValues = xValues.map(x => neuralNetwork(x));
+    }
+
+    // Generate x values
+    for (let x = -range; x <= range; x += 0.1) {
+        xValues.push(x.toFixed(2));  // Keep x values as strings for labels
+    }
+
+    onMount(() => {
+        const ctx = document.getElementById('functionChart').getContext('2d');
+
+        chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: xValues,
+                datasets: [{
+                    label: 'f(x) = x^2',
+                    data: yValues,
+                    borderColor: 'rgb(75, 192, 192)',
+                    fill: false,
+                    tension: 0,
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom'
+                    },
+                    y: {
+                        beginAtZero: false
+                    }
+                }
+            }
+        });
+
+        // Example of updating data
+        setTimeout(() => {
+            updateYValues();
+            chart.data.datasets[0].data = yValues;
+            chart.update();
+        }, 2000);  // Update chart data after 2 seconds
+    });
 </script>
 
-<main class="w-full grid place-items-center *:px-10">
-    <section>
-        <div id="plot" class="" ></div>
+<main class="w-full grid place-items-center *:px-10 py-10">
+    <section class="w-full grid grid-cols-2 place-items-center" >
+        <div class=" w-full max-w-xl p-10 shadow-2xl" >
+            <label class="form-control ">
+                <div class="label">
+                    <span class="label-text">Weight</span>
+                    <span class="label-text-alt"
+                        >Value = </span
+                    >
+                    <span class="label-text-alt"
+                        >-1 to 1</span
+                    >
+                </div>
+                <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    class="range range-lg w-full"
+                />
+            </label>
+            <label class="form-control ">
+                <div class="label">
+                    <span class="label-text">Weight</span>
+                    <span class="label-text-alt"
+                        >Value = </span
+                    >
+                    <span class="label-text-alt"
+                        >-1 to 1</span
+                    >
+                </div>
+                <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    class="range range-lg w-full "
+                />
+            </label>
+        </div>
+        <div class="w-800px shadow-xl" ><canvas id="functionChart"></canvas></div>
+
     </section>
     <!-- Neural Network DIagram -->
-    <section class=" grid place-items-center w-full ">
+    <section class=" grid place-items-center w-full mt-10">
         <div class="my-2 flex items-center justify-between gap-10">
             <h1 class="text-3xl " >Neural Network</h1>
             <!-- <div class="divider divider-horizontal"></div> -->
@@ -69,7 +164,7 @@
                                 tabindex="-1"
                                 aria-label="Decrease"
                                 data-hs-input-number-decrement=""
-                                on:click={() => {inputLayersCount > 1 ? inputLayersCount--: _; inputLayersNeuronCount.pop()} }
+                                on:click={() => {hiddenLayersCount > 1 ? hiddenLayersCount--: _; hiddenLayersNeuronCount.pop()} }
 
                             >
                                 <svg
@@ -95,7 +190,7 @@
                                 placeholder="1"
                                 min="1"
                                 max="8"
-                                bind:value={inputLayersCount}
+                                bind:value={hiddenLayersCount}
                                 data-hs-input-number-input=""
                             />
                             <button
@@ -104,7 +199,7 @@
                                 tabindex="-1"
                                 aria-label="Increase"
                                 data-hs-input-number-increment=""
-                                on:click={() =>{ inputLayersCount < 8 ? inputLayersCount++: _; inputLayersNeuronCount.push(1)} }
+                                on:click={() =>{ hiddenLayersCount < 8 ? hiddenLayersCount++: _; hiddenLayersNeuronCount.push(1)} }
                             >
                                 <svg
                                     class="shrink-0 size-3.5"
@@ -178,7 +273,7 @@
             </div>
             <div class="divider divider-horizontal "></div>
             <div class="flex gap-8 sm:max-w-[1104px] sm:w-full overflow-x-auto w-[180px]  ">
-                {#each { length: inputLayersCount  } as _, i}
+                {#each { length: hiddenLayersCount  } as _, i}
                     <div class=" flex flex-col gap-2 items-center">
                         <div
                             class="py-2 px-3 inline-block  border rounded-lg bg-neutral-900 border-neutral-700"
@@ -191,7 +286,7 @@
                                     tabindex="-1"
                                     aria-label="Decrease"
                                     data-hs-input-number-decrement=""
-                                    on:click={() => inputLayersNeuronCount[i] > 1 ? inputLayersNeuronCount[i]--: _ }
+                                    on:click={() => hiddenLayersNeuronCount[i] > 1 ? hiddenLayersNeuronCount[i]--: _ }
     
                                 >
                                     <svg
@@ -217,7 +312,7 @@
                                     placeholder="1"
                                     min="1"
                                     max="10"
-                                    bind:value={inputLayersNeuronCount[i]}
+                                    bind:value={hiddenLayersNeuronCount[i]}
                                     data-hs-input-number-input=""
                                 />
                                 <button
@@ -226,7 +321,7 @@
                                     tabindex="-1"
                                     aria-label="Increase"
                                     data-hs-input-number-increment=""
-                                    on:click={() => inputLayersNeuronCount[i] < 10 ? inputLayersNeuronCount[i]++: _ }
+                                    on:click={() => hiddenLayersNeuronCount[i] < 10 ? hiddenLayersNeuronCount[i]++: _ }
                                 >
                                     <svg
                                         class="shrink-0 size-3.5"
@@ -247,8 +342,11 @@
                             </div>
                         </div>
                         <div class="divider"></div>
-                        {#each { length: inputLayersNeuronCount[i] } as _, i}
-                            <button class="btn btn-success size-min">
+                        {#each { length: hiddenLayersNeuronCount[i] } as _, i2}
+                            <button
+                                class="btn btn-success size-min"
+                                on:click={()=>{currentNeuron = NNlayers[i].neurons[i2]}}
+                            >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -327,45 +425,6 @@
             </div>
         </div>
     </section>
-    <section class="w-full grid place-items-center" >
-        <div class=" w-full max-w-xl p-10 shadow-2xl mt-10" >
-            <label class="form-control ">
-                <div class="label">
-                    <span class="label-text">Weight</span>
-                    <span class="label-text-alt"
-                        >Value = </span
-                    >
-                    <span class="label-text-alt"
-                        >-1 to 1</span
-                    >
-                </div>
-                <input
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.01"
-                    class="range range-lg w-full"
-                />
-            </label>
-            <label class="form-control ">
-                <div class="label">
-                    <span class="label-text">Weight</span>
-                    <span class="label-text-alt"
-                        >Value = </span
-                    >
-                    <span class="label-text-alt"
-                        >-1 to 1</span
-                    >
-                </div>
-                <input
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.01"
-                    class="range range-lg w-full "
-                />
-            </label>
-        </div>
-    </section>
+    
     
 </main>

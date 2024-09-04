@@ -153,6 +153,7 @@
         hidOutLayers = [...hiddenLayers, outputLayer];
     }
     
+    
     // $: yValues = xValues.map((x) => {return neuralNetwork(x, hidOutLayers)})
     
     if (chart){
@@ -165,8 +166,8 @@
 </script>
 
 <main class="w-full grid place-items-center *:px-10 py-10">
-    <section class="w-full grid grid-cols-2 place-items-center">
-        <div class=" w-full max-w-xl p-10 shadow-2xl relative">
+    <section class="w-full flex gap-20 xl:flex-row flex-col justify-between items-center ">
+        <div class=" w-full max-w-xl p-10 shadow-2xl relative h-min ">
             
             {#if currentNeuron}
             <label class="form-control">
@@ -240,8 +241,8 @@
                 </label>
             {/if}
         </div>
-        <div class="w-800px shadow-xl">
-            <canvas id="functionChart"></canvas>
+        <div class=" w-full shadow-xl">
+            <canvas class="w-full "  id="functionChart"></canvas>
         </div>
     </section>
     <!-- Neural Network DIagram -->

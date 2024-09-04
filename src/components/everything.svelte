@@ -28,7 +28,7 @@
         }
     }
 
-    class layer {
+    class Layer {
         neurons: Neuron[];
         constructor(size: number, prevLayerSize: number) {
             this.neurons = new Array(size)
@@ -47,17 +47,16 @@
     // Hidden Layers
     let hiddenLayersCount = 1;
     let hiddenLayersNeuronCount: number[] = [1];
-    let hiddenLayers: layer[];
+    let hiddenLayers: Layer[];
     
     // I/O Layers
-    let inputLayer = new layer(1, 0);
-    let outputLayer = new layer(1, hiddenLayersNeuronCount[hiddenLayersNeuronCount.length - 1]);
+    let inputLayer = new Layer(1, 0);
+    let outputLayer = new Layer(1, hiddenLayersNeuronCount[hiddenLayersNeuronCount.length - 1]);
     
     // Hidden & Output Layer Combined
-    let hidOutLayers: layer[];
+    let hidOutLayers: Layer[];
     let currentNeuron: cNeuron | null = null
-
-    function neuralNetwork(x: number | string, layers: layer[]) {
+    function neuralNetwork(x: number | string, layers: Layer[]) {
         x = parseFloat(x.toString());
         let inputs = [x];
 
@@ -137,7 +136,7 @@
     // ---------------------------------------
     function updateNet(hiddenLayersCount:number, hiddenLayersNeuronCount: number[]) {
         hiddenLayers = new Array(hiddenLayersCount).fill(0).map((_, i) => {
-            return new layer(
+            return new Layer(
                 hiddenLayersNeuronCount[i],
                 hiddenLayersNeuronCount[i - 1] || 1
             );
@@ -266,10 +265,10 @@
                                 aria-label="Decrease"
                                 data-hs-input-number-decrement=""
                                 on:click={() => {
-                                    hiddenLayersCount > 1
-                                        ? hiddenLayersCount--
-                                        : _;
-                                    hiddenLayersNeuronCount.pop();
+                                    if(!(hidOutLayers.length > 1)) return
+                                    const newLayers = hidOutLayers 
+                                    newLayers.pop()
+                                    hidOutLayers = newLayers
                                 }}
                             >
                                 <svg
@@ -295,7 +294,7 @@
                                 placeholder="1"
                                 min="1"
                                 max="8"
-                                bind:value={hiddenLayersCount}
+                                bind:value={hidOutLayers.length}
                                 data-hs-input-number-input=""
                             />
                             <button
@@ -305,10 +304,12 @@
                                 aria-label="Increase"
                                 data-hs-input-number-increment=""
                                 on:click={() => {
-                                    hiddenLayersCount < 8
-                                        ? hiddenLayersCount++
-                                        : _;
-                                    hiddenLayersNeuronCount.push(1);
+                                    if(!(hidOutLayers.length < 10)) return
+                                    const newLayers = hidOutLayers
+                                    const prevLayerSize = hidOutLayers[hidOutLayers.length - 2].neurons.length;
+                                    const layer = new Layer(1, prevLayerSize)
+                                    newLayers.splice(hidOutLayers.length - 1,0, layer)
+                                    hidOutLayers = newLayers
                                 }}
                             >
                                 <svg
@@ -385,7 +386,7 @@
             <div
                 class="flex gap-8 sm:max-w-[1104px] sm:w-full overflow-x-auto w-[180px]"
             >
-                {#each { length: hiddenLayersCount } as _, i}
+                {#each { length: hidOutLayers.length -1 } as _, i}
                     <div class=" flex flex-col gap-2 items-center">
                         <div
                             class="py-2 px-3 inline-block border rounded-lg bg-neutral-900 border-neutral-700"
@@ -398,10 +399,12 @@
                                     tabindex="-1"
                                     aria-label="Decrease"
                                     data-hs-input-number-decrement=""
-                                    on:click={() =>
-                                        hiddenLayersNeuronCount[i] > 1
-                                            ? hiddenLayersNeuronCount[i]--
-                                            : _}
+                                    on:click={() =>{
+                                        if (!(hidOutLayers[i].neurons.length > 1)) return
+                                        const newLayers = hidOutLayers 
+                                        newLayers[i].neurons.pop()
+                                        hidOutLayers = newLayers
+                                    }}
                                 >
                                     <svg
                                         class="shrink-0 size-3.5"
@@ -426,7 +429,7 @@
                                     placeholder="1"
                                     min="1"
                                     max="10"
-                                    bind:value={hiddenLayersNeuronCount[i]}
+                                    bind:value={hidOutLayers[i].neurons.length}
                                     data-hs-input-number-input=""
                                 />
                                 <button
@@ -435,10 +438,12 @@
                                     tabindex="-1"
                                     aria-label="Increase"
                                     data-hs-input-number-increment=""
-                                    on:click={() =>
-                                        hiddenLayersNeuronCount[i] < 10
-                                            ? hiddenLayersNeuronCount[i]++
-                                            : _}
+                                    on:click={() =>{
+                                        if (!(hidOutLayers[i].neurons.length < 10)) return
+                                        const newLayers = hidOutLayers 
+                                        newLayers[i].neurons.push(new Neuron(hidOutLayers[i-1] ? hidOutLayers[i-1].neurons.length : 1))
+                                        hidOutLayers = newLayers
+                                    }}
                                 >
                                     <svg
                                         class="shrink-0 size-3.5"
@@ -459,7 +464,7 @@
                             </div>
                         </div>
                         <div class="divider"></div>
-                        {#each { length: hiddenLayersNeuronCount[i] } as _, i2}
+                        {#each { length: hidOutLayers[i].neurons.length } as _, i2}
                             <button
                                 class="btn btn-success size-min"
                                 on:click={() => {

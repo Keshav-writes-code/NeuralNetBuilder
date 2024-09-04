@@ -59,26 +59,22 @@
     let currentNeuron: cNeuron | null = null
 
     function neuralNetwork(x: number | string, layers: layer[]) {
-        let result = 0;
         x = parseFloat(x.toString());
+        let inputs = [x];
 
-        layers.forEach((layer) => {
-            let neuronsOut = 0
-            for (let i = 0; i < layer.neurons.length; i++) {
-                const neuron = layer.neurons[i];
-                let neuronOut = 0;
-                let weightedSum = 0;
-                neuron.weights.forEach(weight => {
-                    weightedSum += weight * x;
-                })
-                neuronOut = Math.max(0, weightedSum + neuron.bias);
-                neuronsOut += neuronOut
+        for (const layer of layers) {
+            const outputs = [];
+            for (const neuron of layer.neurons) {
+                const weightedSum = neuron.weights.reduce((sum, weight, i) => sum + weight * inputs[i], 0) + neuron.bias;
+                const neuronOut = Math.max(0, weightedSum); // ReLU activation
+                outputs.push(neuronOut);
             }
-            result += neuronsOut
-        })
-        
-        return result;
+            inputs = outputs; // Set inputs for the next layer
+        }
+
+        return inputs.reduce((sum, output) => sum + output, 0); // Summing the final layer's outputs
     }
+
 
     // ---------------------------------------
     // -------------- Plotting ---------------

@@ -1,4 +1,9 @@
 <script lang="ts">
+    // Things to DO!
+    // - made the sliders on UI change the actual Layers Object istead of a Currentneuron value
+    // - now figure out why the sliders are not moving
+    
+    
     class Neuron {
         value: number;
         bias: number;
@@ -11,6 +16,16 @@
         }
         show() {
             console.log(this);
+        }
+    }
+
+    class cNeuron{
+        idx: number;
+        idy: number;
+
+        constructor(idx: number, idy: number){
+            this.idx = idx
+            this.idy = idy
         }
     }
 
@@ -41,37 +56,29 @@
     
     // Hidden & Output Layer Combined
     let hidOutLayers: layer[];
+    let currentNeuron: cNeuron | null = null
 
-    // Reactivity Stuff
-    $: {
-        hiddenLayers = new Array(hiddenLayersCount).fill(0).map((_, i) => {
-            return new layer(
-                hiddenLayersNeuronCount[i],
-                hiddenLayersNeuronCount[i - 1] || 1
-            );
-        });
-        hidOutLayers = [...hiddenLayers, outputLayer];
-    }
-    let currentNeuron: Neuron |null = null;
-    
-    function neuralNetwork(x: number) {
+    function neuralNetwork(x: number | string, layers: layer[]) {
         let result = 0;
-        hidOutLayers.forEach((layer) => {
-            
-            let neuronOut = 0;
-            layer.neurons.forEach((neuron) => {
+        x = parseFloat(x.toString());
+
+        layers.forEach((layer) => {
+            let neuronsOut = 0
+            for (let i = 0; i < layer.neurons.length; i++) {
+                const neuron = layer.neurons[i];
+                let neuronOut = 0;
                 let weightedSum = 0;
                 neuron.weights.forEach(weight => {
                     weightedSum += weight * x;
                 })
                 neuronOut = Math.max(0, weightedSum + neuron.bias);
-            })
-            result += neuronOut
+                neuronsOut += neuronOut
+            }
+            result += neuronsOut
         })
+        
         return result;
     }
-
-    
 
     // ---------------------------------------
     // -------------- Plotting ---------------
@@ -79,23 +86,23 @@
     import { onMount } from "svelte";
     import { Chart } from "chart.js/auto";
 
-    let chart;
-    let xValues = [];
-    let yValues = [];
+    let chart: Chart;
+    let xValues: number[] = [];
+    let yValues: number[] = [];
     const range = 10;
 
     // Function to generate new y values based on x values
     function updateYValues() {
-        yValues = xValues.map((x) => neuralNetwork(x));
+        yValues = xValues.map((x) => neuralNetwork(x, hidOutLayers));
     }
 
     // Generate x values
     for (let x = -range; x <= range; x += 0.1) {
-        xValues.push(x.toFixed(2)); // Keep x values as strings for labels
+        xValues.push(x); // Keep x values as strings for labels
     }
 
     onMount(() => {
-        const ctx = document.getElementById("functionChart").getContext("2d");
+        const ctx = document.getElementById("functionChart")?.getContext("2d");
 
         chart = new Chart(ctx, {
             type: "line",
@@ -125,10 +132,36 @@
             },
         });
         updateYValues();
-            chart.data.datasets[0].data = yValues;
-            chart.update();
+        chart.data.datasets[0].data = yValues;
+        chart.update();
         
     });
+
+    // ---------------------------------------
+    // ---------- Reactivity Stuff -----------
+    // ---------------------------------------
+
+    // Error - to Work on
+    // Moving sliders is causing this whole code block to run which causes all the values to reset to 0 or 1 making slider inactive
+    $: {
+        hiddenLayers = new Array(hiddenLayersCount).fill(0).map((_, i) => {
+            return new layer(
+                hiddenLayersNeuronCount[i],
+                hiddenLayersNeuronCount[i - 1] || 1
+            );
+        });
+        hidOutLayers = [...hiddenLayers, outputLayer];
+    }
+    
+    // $: yValues = xValues.map((x) => {return neuralNetwork(x, hidOutLayers)})
+    
+    if (chart){
+        chart.data.datasets[0].data = yValues;
+        console.clear()
+        console.log(yValues);
+        
+        chart.update();
+    }
 </script>
 
 <main class="w-full grid place-items-center *:px-10 py-10">
@@ -139,7 +172,7 @@
             <label class="form-control">
                 <div class="label">
                     <span class="label-text">Bias</span>
-                    <span class="label-text-alt">Value = {currentNeuron.bias}</span>
+                    <span class="label-text-alt">Value = {hiddenLayers[currentNeuron.idx].neurons[currentNeuron.idy].bias}</span>
                     <span class="label-text-alt">-10 to 10</span>
                 </div>
                 <input
@@ -148,7 +181,7 @@
                     max="10"
                     step="0.01"
                     class="range range-lg w-full"
-                    bind:value={currentNeuron.bias}
+                    bind:value={hiddenLayers[currentNeuron.idx].neurons[currentNeuron.idy].bias}
                 />
             </label>
             {:else}
@@ -172,11 +205,11 @@
 
             <div class="divider"></div>
             {#if currentNeuron}
-                {#each currentNeuron.weights as _, i}
+                {#each hiddenLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights as _, i}
                     <label class="form-control">
                         <div class="label">
                             <span class="label-text">Weight {i+1}</span>
-                            <span class="label-text-alt">Value = {currentNeuron.weights[i]}</span>
+                            <span class="label-text-alt">Value = {hiddenLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights[i]}</span>
                             <span class="label-text-alt">-10 to 10</span>
                         </div>
                         <input
@@ -185,7 +218,7 @@
                             max="10"
                             step="0.01"
                             class="range range-lg w-full"
-                            bind:value={currentNeuron.weights[i]}
+                            bind:value={hiddenLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights[i]}
                         />
                     </label>
                 {/each}
@@ -428,10 +461,10 @@
                             <button
                                 class="btn btn-success size-min"
                                 on:click={() => {
-                                    currentNeuron = hiddenLayers[i].neurons[i2];
-                                    console.log(
-                                        currentNeuron
-                                    );
+                                    if (!currentNeuron) currentNeuron = new cNeuron(0, 0)
+                                    currentNeuron.idx = i
+                                    currentNeuron.idy = i2
+                                    
                                 }}
                             >
                                 <svg

@@ -2,7 +2,7 @@
     // Things to DO!
     // - Make the graph animate on X axis changes
     // - Improve the NN function's algo
-    // - Fix when changing a before Layer Length, the neurons of next Layers are not Updated
+    // - Fix when changing a before Layer Length, the neurons weights of next Layers are not Updated
     
     class Neuron {
         value: number;

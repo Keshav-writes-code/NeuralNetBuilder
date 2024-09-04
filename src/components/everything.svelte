@@ -166,14 +166,14 @@
 </script>
 
 <main class="w-full grid place-items-center *:px-10 py-10">
-    <section class="w-full flex gap-20 xl:flex-row flex-col justify-between items-center ">
+    <section class="w-full flex gap-20 xl:flex-row flex-col-reverse justify-between items-center ">
         <div class=" w-full max-w-xl p-10 shadow-2xl relative h-min ">
             
             {#if currentNeuron}
             <label class="form-control">
                 <div class="label">
                     <span class="label-text">Bias</span>
-                    <span class="label-text-alt">Value = {hiddenLayers[currentNeuron.idx].neurons[currentNeuron.idy].bias}</span>
+                    <span class="label-text-alt">Value = {hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].bias}</span>
                     <span class="label-text-alt">-10 to 10</span>
                 </div>
                 <input
@@ -182,7 +182,7 @@
                     max="10"
                     step="0.01"
                     class="range range-lg w-full"
-                    bind:value={hiddenLayers[currentNeuron.idx].neurons[currentNeuron.idy].bias}
+                    bind:value={hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].bias}
                 />
             </label>
             {:else}
@@ -206,11 +206,11 @@
 
             <div class="divider"></div>
             {#if currentNeuron}
-                {#each hiddenLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights as _, i}
+                {#each hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights as _, i}
                     <label class="form-control">
                         <div class="label">
                             <span class="label-text">Weight {i+1}</span>
-                            <span class="label-text-alt">Value = {hiddenLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights[i]}</span>
+                            <span class="label-text-alt">Value = {hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights[i]}</span>
                             <span class="label-text-alt">-10 to 10</span>
                         </div>
                         <input
@@ -219,7 +219,7 @@
                             max="10"
                             step="0.01"
                             class="range range-lg w-full"
-                            bind:value={hiddenLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights[i]}
+                            bind:value={hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights[i]}
                         />
                     </label>
                 {/each}

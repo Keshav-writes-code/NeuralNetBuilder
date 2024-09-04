@@ -140,10 +140,7 @@
     // ---------------------------------------
     // ---------- Reactivity Stuff -----------
     // ---------------------------------------
-
-    // Error - to Work on
-    // Moving sliders is causing this whole code block to run which causes all the values to reset to 0 or 1 making slider inactive
-    $: {
+    function updateNet(hiddenLayersCount:number, hiddenLayersNeuronCount: number[]) {
         hiddenLayers = new Array(hiddenLayersCount).fill(0).map((_, i) => {
             return new layer(
                 hiddenLayersNeuronCount[i],
@@ -152,6 +149,7 @@
         });
         hidOutLayers = [...hiddenLayers, outputLayer];
     }
+    $: updateNet(hiddenLayersCount, hiddenLayersNeuronCount)
     
     // $: yValues = xValues.map((x) => {return neuralNetwork(x, hidOutLayers)})
     

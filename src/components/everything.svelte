@@ -1,8 +1,7 @@
 <script lang="ts">
     // Things to DO!
-    // - made the sliders on UI change the actual Layers Object istead of a Currentneuron value
-    // - now figure out why the sliders are not moving
-    
+    // - Make the graph animate on X axis changes
+    // - Improve the NN function's algo
     
     class Neuron {
         value: number;
@@ -217,8 +216,8 @@
                         </div>
                         <input
                             type="range"
-                            min="-10"
-                            max="10"
+                            min="-1"
+                            max="1"
                             step="0.01"
                             class="range range-lg w-full"
                             bind:value={hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights[i]}

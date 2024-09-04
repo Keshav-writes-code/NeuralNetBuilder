@@ -140,10 +140,7 @@
     // ---------------------------------------
     // ---------- Reactivity Stuff -----------
     // ---------------------------------------
-
-    // Error - to Work on
-    // Moving sliders is causing this whole code block to run which causes all the values to reset to 0 or 1 making slider inactive
-    $: {
+    function updateNet(hiddenLayersCount:number, hiddenLayersNeuronCount: number[]) {
         hiddenLayers = new Array(hiddenLayersCount).fill(0).map((_, i) => {
             return new layer(
                 hiddenLayersNeuronCount[i],
@@ -152,15 +149,18 @@
         });
         hidOutLayers = [...hiddenLayers, outputLayer];
     }
+    $: updateNet(hiddenLayersCount, hiddenLayersNeuronCount)
     
-    
-    // $: yValues = xValues.map((x) => {return neuralNetwork(x, hidOutLayers)})
+    $: {
+        yValues = xValues.map((x) => {return neuralNetwork(x, hidOutLayers)})
+        if (chart){
+            chart.data.datasets[0].data = yValues;
+            chart.update();
+        }
+    }
     
     if (chart){
         chart.data.datasets[0].data = yValues;
-        console.clear()
-        console.log(yValues);
-        
         chart.update();
     }
 </script>
@@ -170,6 +170,12 @@
         <div class=" w-full max-w-xl p-10 shadow-2xl relative h-min ">
             
             {#if currentNeuron}
+            
+            <div class="text-2xl">
+                Neuron 
+                <div class="badge badge-lg text-xl badge-neutral">{currentNeuron.idx+1}:{currentNeuron.idy+1} </div>
+            </div>
+
             <label class="form-control">
                 <div class="label">
                     <span class="label-text">Bias</span>
@@ -186,7 +192,7 @@
                 />
             </label>
             {:else}
-            <h1 class="text-2xl absolute top-4" >Select a Neuron</h1>
+            <h1 class="text-2xl " >Select a Neuron</h1>
             <label class="form-control opacity-50 ">
                 <div class="label">
                     <span class="label-text">Bias</span>

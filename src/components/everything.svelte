@@ -151,13 +151,16 @@
     }
     $: updateNet(hiddenLayersCount, hiddenLayersNeuronCount)
     
-    // $: yValues = xValues.map((x) => {return neuralNetwork(x, hidOutLayers)})
+    $: {
+        yValues = xValues.map((x) => {return neuralNetwork(x, hidOutLayers)})
+        if (chart){
+            chart.data.datasets[0].data = yValues;
+            chart.update();
+        }
+    }
     
     if (chart){
         chart.data.datasets[0].data = yValues;
-        console.clear()
-        console.log(yValues);
-        
         chart.update();
     }
 </script>
@@ -167,10 +170,16 @@
         <div class=" w-full max-w-xl p-10 shadow-2xl relative">
             
             {#if currentNeuron}
+            
+            <div class="text-2xl">
+                Neuron 
+                <div class="badge badge-lg text-xl badge-neutral">{currentNeuron.idx+1}:{currentNeuron.idy+1} </div>
+            </div>
+
             <label class="form-control">
                 <div class="label">
                     <span class="label-text">Bias</span>
-                    <span class="label-text-alt">Value = {hiddenLayers[currentNeuron.idx].neurons[currentNeuron.idy].bias}</span>
+                    <span class="label-text-alt">Value = {hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].bias}</span>
                     <span class="label-text-alt">-10 to 10</span>
                 </div>
                 <input
@@ -179,11 +188,11 @@
                     max="10"
                     step="0.01"
                     class="range range-lg w-full"
-                    bind:value={hiddenLayers[currentNeuron.idx].neurons[currentNeuron.idy].bias}
+                    bind:value={hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].bias}
                 />
             </label>
             {:else}
-            <h1 class="text-2xl absolute top-4" >Select a Neuron</h1>
+            <h1 class="text-2xl " >Select a Neuron</h1>
             <label class="form-control opacity-50 ">
                 <div class="label">
                     <span class="label-text">Bias</span>
@@ -203,11 +212,11 @@
 
             <div class="divider"></div>
             {#if currentNeuron}
-                {#each hiddenLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights as _, i}
+                {#each hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights as _, i}
                     <label class="form-control">
                         <div class="label">
                             <span class="label-text">Weight {i+1}</span>
-                            <span class="label-text-alt">Value = {hiddenLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights[i]}</span>
+                            <span class="label-text-alt">Value = {hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights[i]}</span>
                             <span class="label-text-alt">-10 to 10</span>
                         </div>
                         <input
@@ -216,7 +225,7 @@
                             max="10"
                             step="0.01"
                             class="range range-lg w-full"
-                            bind:value={hiddenLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights[i]}
+                            bind:value={hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights[i]}
                         />
                     </label>
                 {/each}

@@ -29,7 +29,7 @@
         }
     }
 
-    class layer {
+    class Layer {
         neurons: Neuron[];
         constructor(size: number, prevLayerSize: number) {
             this.neurons = new Array(size)
@@ -48,17 +48,17 @@
     // Hidden Layers
     let hiddenLayersCount = 1;
     let hiddenLayersNeuronCount: number[] = [1];
-    let hiddenLayers: layer[];
+    let hiddenLayers: Layer[];
     
     // I/O Layers
-    let inputLayer = new layer(1, 0);
-    let outputLayer = new layer(1, hiddenLayersNeuronCount[hiddenLayersNeuronCount.length - 1]);
+    let inputLayer = new Layer(1, 0);
+    let outputLayer = new Layer(1, hiddenLayersNeuronCount[hiddenLayersNeuronCount.length - 1]);
     
     // Hidden & Output Layer Combined
-    let hidOutLayers: layer[];
+    let hidOutLayers: Layer[];
     let currentNeuron: cNeuron | null = null
 
-    function neuralNetwork(x: number | string, layers: layer[]) {
+    function neuralNetwork(x: number | string, layers: Layer[]) {
         x = parseFloat(x.toString());
         let inputs = [x];
 
@@ -138,7 +138,7 @@
     // ---------------------------------------
     function updateNet(hiddenLayersCount:number, hiddenLayersNeuronCount: number[]) {
         hiddenLayers = new Array(hiddenLayersCount).fill(0).map((_, i) => {
-            return new layer(
+            return new Layer(
                 hiddenLayersNeuronCount[i],
                 hiddenLayersNeuronCount[i - 1] || 1
             );

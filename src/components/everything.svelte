@@ -106,7 +106,7 @@
                 labels: xValues,
                 datasets: [
                     {
-                        label: "f(x) = x^2",
+                        label: " f(x) = NeuralNet(x)",
                         data: yValues,
                         borderColor: "rgb(75, 192, 192)",
                         fill: false,
@@ -123,12 +123,14 @@
                     },
                     y: {
                         beginAtZero: false,
+                        max: 10,
                     },
                 },
             },
         });
         updateYValues();
         chart.data.datasets[0].data = yValues;
+        chart.options.animation = false; // disables all animations
         chart.update();
         
     });

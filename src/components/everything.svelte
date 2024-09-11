@@ -55,14 +55,14 @@
     let outputLayer = new Layer(1, hiddenLayersNeuronCount[hiddenLayersNeuronCount.length - 1]);
     
     // Hidden & Output Layer Combined
-    let hidOutLayers: Layer[];
+    let allLayers: Layer[];
     let currentNeuron: cNeuron | null = null
 
     function neuralNetwork(x: number | string, layers: Layer[]) {
         x = parseFloat(x.toString());
         let inputs = [x];
-
-        for (const layer of layers) {
+        for (let i = 1; i < layers.length; i++) {
+            const layer = layers[i];
             const outputs = [];
             for (const neuron of layer.neurons) {
                 const weightedSum = neuron.weights.reduce((sum, weight, i) => sum + weight * inputs[i], 0) + neuron.bias;
@@ -71,10 +71,8 @@
             }
             inputs = outputs; // Set inputs for the next layer
         }
-
         return inputs.reduce((sum, output) => sum + output, 0); // Summing the final layer's outputs
     }
-
 
     // ---------------------------------------
     // -------------- Plotting ---------------
@@ -89,7 +87,7 @@
 
     // Function to generate new y values based on x values
     function updateYValues() {
-        yValues = xValues.map((x) => neuralNetwork(x, hidOutLayers));
+        yValues = xValues.map((x) => neuralNetwork(x, allLayers));
     }
 
     // Generate x values
@@ -145,12 +143,12 @@
                 hiddenLayersNeuronCount[i - 1] || 1
             );
         });
-        hidOutLayers = [...hiddenLayers, outputLayer];
+        allLayers = [inputLayer, ...hiddenLayers, outputLayer];
     }
     $: updateNet(hiddenLayersCount, hiddenLayersNeuronCount)
     
     $: {
-        yValues = xValues.map((x) => {return neuralNetwork(x, hidOutLayers)})
+        yValues = xValues.map((x) => {return neuralNetwork(x, allLayers)})
         if (chart){
             chart.data.datasets[0].data = yValues;
             chart.update();
@@ -177,7 +175,7 @@
             <label class="form-control">
                 <div class="label">
                     <span class="label-text">Bias</span>
-                    <span class="label-text-alt">Value = {hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].bias}</span>
+                    <span class="label-text-alt">Value = {allLayers[currentNeuron.idx+1].neurons[currentNeuron.idy].bias}</span>
                     <span class="label-text-alt">-10 to 10</span>
                 </div>
                 <input
@@ -186,7 +184,7 @@
                     max="10"
                     step="0.01"
                     class="range range-lg w-full"
-                    bind:value={hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].bias}
+                    bind:value={allLayers[currentNeuron.idx+1].neurons[currentNeuron.idy].bias}
                 />
             </label>
             {:else}
@@ -210,11 +208,11 @@
 
             <div class="divider"></div>
             {#if currentNeuron}
-                {#each hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights as _, i}
+                {#each allLayers[currentNeuron.idx+1].neurons[currentNeuron.idy].weights as _, i}
                     <label class="form-control">
                         <div class="label">
                             <span class="label-text">Weight {i+1}</span>
-                            <span class="label-text-alt">Value = {hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights[i]}</span>
+                            <span class="label-text-alt">Value = {allLayers[currentNeuron.idx+1].neurons[currentNeuron.idy].weights[i]}</span>
                             <span class="label-text-alt">-10 to 10</span>
                         </div>
                         <input
@@ -223,7 +221,7 @@
                             max="1"
                             step="0.01"
                             class="range range-lg w-full"
-                            bind:value={hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights[i]}
+                            bind:value={allLayers[currentNeuron.idx+1].neurons[currentNeuron.idy].weights[i]}
                         />
                     </label>
                 {/each}

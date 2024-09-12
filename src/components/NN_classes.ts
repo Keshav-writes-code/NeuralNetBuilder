@@ -4,9 +4,10 @@ export class Neuron {
     weights: number[];
 
     constructor(prevLayer_neurons: number) {
-        this.value = 0;
-        this.bias = 0;
-        this.weights = new Array(prevLayer_neurons).fill(1);
+        this.value = parseFloat(Math.random().toFixed(2))*2;
+        this.bias = parseFloat(Math.random().toFixed(2))*2;
+        this.weights = new Array(prevLayer_neurons).fill(0);
+        this.weights = this.weights.map(() => parseFloat(Math.random().toFixed(2))*2);
     }
     show() {
         console.log(this);

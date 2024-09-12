@@ -2,44 +2,8 @@
     // Things to DO!
     // - Make the graph animate on X axis changes
     // - Improve the NN function's algo
-    // - Fix when changing a before Layer Length, the neurons weights of next Layers are not Updated
-    
-    class Neuron {
-        value: number;
-        bias: number;
-        weights: number[];
-
-        constructor(prevLayer_neurons: number) {
-            this.value = 0;
-            this.bias = 0;
-            this.weights = new Array(prevLayer_neurons).fill(1);
-        }
-        show() {
-            console.log(this);
-        }
-    }
-
-    class cNeuron{
-        idx: number;
-        idy: number;
-
-        constructor(idx: number, idy: number){
-            this.idx = idx
-            this.idy = idy
-        }
-    }
-
-    class Layer {
-        neurons: Neuron[];
-        constructor(size: number, prevLayerSize: number) {
-            this.neurons = new Array(size)
-                .fill(0)
-                .map(() => new Neuron(prevLayerSize));
-        }
-        show() {
-            console.log(this.neurons);
-        }
-    }
+    // - Fix when changing a before Layer Length, the neurons weights of next Layers are not Updated    
+    import {cNeuron, Layer} from "./NN_classes.ts"
 
     //---------------------------------------------
     // Setting up the Input, Hidden & Output Layers

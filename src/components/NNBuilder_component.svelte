@@ -21,7 +21,9 @@
     // Hidden & Output Layer Combined
     let hidOutLayers: Layer[];
     let currentNeuron: cNeuron | null = null
-
+    function sigmoid(x: number): number {
+        return 1 / (1 + Math.exp(-x));
+    }
     function neuralNetwork(x: number | string, layers: Layer[]) {
         x = parseFloat(x.toString());
         let inputs = [x];
@@ -32,6 +34,7 @@
             for (const neuron of layer.neurons) {
                 const weightedSum = neuron.weights.reduce((sum, weight, i) => sum + weight * inputs[i], 0) + neuron.bias;
                 let neuronOut = Math.max(0, weightedSum); // ReLU activation
+                neuronOut = sigmoid(weightedSum)
                 outputs.push(neuronOut);
             }
             inputs = outputs; // Set inputs for the next layer
@@ -64,7 +67,6 @@
 
     onMount(() => {
         const ctx = document.getElementById("functionChart")?.getContext("2d");
-
         chart = new Chart(ctx, {
             type: "line",
             data: {
@@ -88,7 +90,6 @@
                     },
                     y: {
                         beginAtZero: false,
-                        max: 10,
                     },
                 },
             },
@@ -129,7 +130,7 @@
     }
 </script>
 
-<main class="w-full grid place-items-center *:px-10 py-10">
+<main class="w-full grid place-items-center *sm:px-10 *:px-5 py-10">
     <section class="w-full flex gap-20 xl:flex-row flex-col-reverse justify-between items-center ">
         <div class=" w-full max-w-xl p-10 shadow-2xl relative h-min ">
             
@@ -303,7 +304,7 @@
         </div>
 
         <div
-            class="flex sm:gap-8 h-[658px] b-gray-700 b-2 py-8 px-10 rounded-lg sm:box-content box-border max-w-[1444px] w-full"
+            class="flex sm:gap-8 h-730px b-gray-700 b-2 py-8 px-10 rounded-lg max-w-[1444px] overflow-x-scroll w-full"
         >
             <div class=" flex flex-col gap-2 items-center">
                 <div
@@ -352,7 +353,7 @@
             </div>
             <div class="divider divider-horizontal"></div>
             <div
-                class="flex gap-8 sm:max-w-[1104px] sm:w-full overflow-x-auto w-[180px]"
+                class="flex gap-8"
             >
                 {#each { length: hiddenLayersCount } as _, i}
                     <div class=" flex flex-col gap-2 items-center">
@@ -430,7 +431,7 @@
                         <div class="divider"></div>
                         {#each { length: hiddenLayersNeuronCount[i] } as _, i2}
                             <button
-                                class="btn btn-success size-min"
+                                class="btn btn-success size-min hover:scale-103 focus:bg-#36d39944 group"
                                 on:click={() => {
                                     if (!currentNeuron) currentNeuron = new cNeuron(0, 0)
                                     currentNeuron.idx = i
@@ -448,7 +449,7 @@
                                     stroke-width="2"
                                     stroke-linecap="round"
                                     stroke-linejoin="round"
-                                    class="lucide lucide-codesandbox"
+                                    class="lucide lucide-codesandbox  group-focus:stroke-#fff"
                                     ><path
                                         d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
                                     /><polyline

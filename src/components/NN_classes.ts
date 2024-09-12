@@ -4,7 +4,7 @@ export class Neuron {
     weights: number[];
 
     constructor(prevLayer_neurons: number) {
-        const randRange = 10  //means -10 to 10 
+        const randRange = 1  //means -10 to 10 
         this.value = 0;
         this.bias = (parseFloat(Math.random().toFixed(2))*randRange*2)-randRange;
         this.weights = new Array(prevLayer_neurons).fill(0);

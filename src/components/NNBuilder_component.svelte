@@ -26,17 +26,15 @@
         x = parseFloat(x.toString());
         let inputs = [x];
 
-        for (let i = 0; i < layers.length; i++) {
+        for (let i = 0; i < layers.length -1; i++) {
             const layer = layers[i];
             const outputs = [];
             for (const neuron of layer.neurons) {
                 const weightedSum = neuron.weights.reduce((sum, weight, i) => sum + weight * inputs[i], 0) + neuron.bias;
                 let neuronOut = Math.max(0, weightedSum); // ReLU activation
-                if (i == layers.length -1) neuronOut = weightedSum
                 outputs.push(neuronOut);
             }
             inputs = outputs; // Set inputs for the next layer
-            
         }
 
         return inputs.reduce((sum, output) => sum + output, 0); // Summing the final layer's outputs
@@ -117,6 +115,7 @@
     $: updateNet(hiddenLayersCount, hiddenLayersNeuronCount)
     
     $: {
+        console.clear()
         yValues = xValues.map((x) => {return neuralNetwork(x, hidOutLayers)})
         if (chart){
             chart.data.datasets[0].data = yValues;

@@ -9,9 +9,9 @@
   // --------------Some Variable----------------- 
   //---------------------------------------------
   enum af_enum {
-    relu,
-    sigmoid,
-    tanh
+    relu = 'ReLU',
+    sigmoid = 'Signmoid',
+    tanh = 'TanH'
   }
   const activaFn = {
     [af_enum.relu]: (x: number) => Math.max(0, x),
@@ -19,7 +19,6 @@
     [af_enum.tanh]: (x: number) => Math.tanh(x),
   };
   let selActivaFn = af_enum.relu;
-  
   //---------------------------------------------
   // Setting up the Input, Hidden & Output Layers
   //---------------------------------------------
@@ -266,9 +265,9 @@
 
     <div class="w-full max-w-[1530px]">
       <div
-        class="w-full bg-gradient-conic rounded-lg flex items-center gap-8 justify-center *:flex *:flex-col *:gap-2"
+        class="w-full bg-gradient-conic rounded-lg grid grid-cols-2 place-items-center gap-8 mb-4 *:flex *:flex-col *:gap-2"
       >
-        <div class=" p-4 rounded-lg max-w-[350px]">
+        <div class=" rounded-lg max-w-[350px] justify-self-end ">
           <label class="text-gray-400 text-sm"> Hidden layers </label>
           <div class="relative1 max-w-xs text-gray-300">
             <div
@@ -278,7 +277,7 @@
               <div class="flex items-center gap-x-1.5">
                 <button
                   type="button"
-                  class="size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 text-gray-800 shadow-sm focus:outline-none disabled:opacity-50 disabled:pointer-events-none bg-neutral-900 border-neutral-700 text-white hover:bg-neutral-300 focus:bg-neutral-100 z-2"
+                  class="size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border shadow-sm focus:outline-none disabled:opacity-50 disabled:pointer-events-none bg-neutral-900 border-neutral-700 text-white hover:bg-neutral-800 focus:bg-neutral-800"
                   tabindex="-1"
                   aria-label="Decrease"
                   data-hs-input-number-decrement=""
@@ -344,11 +343,11 @@
             </div>
           </div>
         </div>
-        <div class="">
+        <div class=" justify-self-start ">
           <label class="text-gray-400 text-sm"> Activation Function </label>
-          <div class="dropdown">
+          <div class="dropdown ">
             <div tabindex="0" role="button" class="btn m-1">
-              ReLU
+              {selActivaFn}
               <svg
                 width="12px"
                 height="12px"
@@ -460,7 +459,7 @@
                 <div class="flex items-center gap-x-1.5">
                   <button
                     type="button"
-                    class="size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 text-gray-800 shadow-sm focus:outline-none disabled:opacity-50 disabled:pointer-events-none bg-neutral-900 border-neutral-700 text-white hover:bg-neutral-300 focus:bg-neutral-100 z-2"
+                    class="size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border shadow-sm focus:outline-none disabled:opacity-50 disabled:pointer-events-none bg-neutral-900 border-neutral-700 text-white hover:bg-neutral-800 focus:bg-neutral-800"
                     tabindex="-1"
                     aria-label="Decrease"
                     data-hs-input-number-decrement=""

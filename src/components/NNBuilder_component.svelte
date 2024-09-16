@@ -157,7 +157,7 @@
   <section
     class="w-full flex gap-20 xl:flex-row flex-col-reverse justify-between items-center"
   >
-    <div class=" w-full max-w-xl p-10 shadow-2xl relative h-min">
+    <div class="border-neutral rounded-lg  b-2 w-full max-w-xl p-10 shadow-2xl relative h-min">
       {#if currentNeuron}
         <div class="text-2xl">
           Neuron
@@ -252,7 +252,7 @@
 
       </div>
     </div>
-    <div class=" w-full shadow-xl">
+    <div class="rounded-lg  w-full shadow-xl border-neutral b-2">
       <canvas class="w-full" id="functionChart"></canvas>
     </div>
   </section>
@@ -265,7 +265,7 @@
 
     <div class="w-full max-w-[1530px]">
       <div
-        class="w-full bg-gradient-conic rounded-lg grid grid-cols-2 place-items-center gap-8 mb-4 *:flex *:flex-col *:gap-2"
+        class="w-full  rounded-lg grid grid-cols-2 place-items-center gap-8 mb-4 *:flex *:flex-col *:gap-2"
       >
         <div class=" rounded-lg max-w-[350px] justify-self-end ">
           <label class="text-gray-400 text-sm"> Hidden layers </label>
@@ -403,7 +403,7 @@
       </div>
 
       <div
-        class="flex sm:gap-8 h-730px b-gray-700 b-2 py-8 px-10 rounded-lg overflow-x-auto w-full"
+        class="flex sm:gap-8 h-730px border-neutral b-2 py-8 px-10 rounded-lg overflow-x-auto w-full"
       >
         <div class=" flex flex-col gap-2 items-center">
           <div

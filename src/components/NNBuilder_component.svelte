@@ -173,6 +173,7 @@
     </div>
 
     <div class="w-full max-w-[1530px]">
+      <!-- 150 LOC -->
       <div
         class="w-full  rounded-lg grid grid-cols-2 place-items-center gap-8 mb-4 *:flex *:flex-col *:gap-2"
       >
@@ -195,20 +196,7 @@
                     hiddenLayersNeuronCount.pop();
                   }}
                 >
-                  <svg
-                    class="shrink-0 size-3.5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <path d="M5 12h14"></path>
-                  </svg>
+                  <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14"></path> </svg>
                 </button>
                 <input
                   class="p-0 w-6 bg-transparent border-0 text-center focus:ring-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none text-white"
@@ -232,21 +220,7 @@
                     hiddenLayersNeuronCount.push(1);
                   }}
                 >
-                  <svg
-                    class="shrink-0 size-3.5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <path d="M5 12h14"></path>
-                    <path d="M12 5v14"></path>
-                  </svg>
+                  <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14"></path> <path d="M12 5v14"></path> </svg>
                 </button>
               </div>
             </div>
@@ -257,17 +231,7 @@
           <div class="dropdown ">
             <div tabindex="0" role="button" class="btn m-1">
               {selActivaFn}
-              <svg
-                width="12px"
-                height="12px"
-                class="inline-block h-2 w-2 fill-current opacity-60"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 2048 2048"
-              >
-                <path
-                  d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"
-                ></path>
-              </svg>
+              <svg width="12px" height="12px" class="inline-block h-2 w-2 fill-current opacity-60" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048" > <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z" ></path> </svg>
             </div>
             <ul
               tabindex="0"
@@ -310,7 +274,7 @@
           </div>
         </div>
       </div>
-
+      <!-- 200 -->
       <div
         class="flex sm:gap-8 h-730px border-neutral b-2 py-8 px-10 rounded-lg overflow-x-auto w-full"
       >
@@ -336,25 +300,7 @@
           </div>
           <div class="divider"></div>
           <button class="btn btn-success size-min" disabled>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-codesandbox"
-              ><path
-                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
-              /><polyline points="7.5 4.21 12 6.81 16.5 4.21" /><polyline
-                points="7.5 19.79 7.5 14.6 3 12"
-              /><polyline points="21 12 16.5 14.6 16.5 19.79" /><polyline
-                points="3.27 6.96 12 12.01 20.73 6.96"
-              /><line x1="12" x2="12" y1="22.08" y2="12" /></svg
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-codesandbox" ><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" /><polyline points="7.5 4.21 12 6.81 16.5 4.21" /><polyline points="7.5 19.79 7.5 14.6 3 12" /><polyline points="21 12 16.5 14.6 16.5 19.79" /><polyline points="3.27 6.96 12 12.01 20.73 6.96" /><line x1="12" x2="12" y1="22.08" y2="12" /></svg >
           </button>
         </div>
         <div class="divider divider-horizontal"></div>
@@ -377,20 +323,7 @@
                         ? hiddenLayersNeuronCount[i]--
                         : _}
                   >
-                    <svg
-                      class="shrink-0 size-3.5"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="M5 12h14"></path>
-                    </svg>
+                    <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14"></path> </svg>
                   </button>
                   <input
                     class="p-0 w-6 bg-transparent border-0 text-center focus:ring-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none text-white"
@@ -414,21 +347,7 @@
                         ? hiddenLayersNeuronCount[i]++
                         : _}
                   >
-                    <svg
-                      class="shrink-0 size-3.5"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="M5 12h14"></path>
-                      <path d="M12 5v14"></path>
-                    </svg>
+                    <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14"></path> <path d="M12 5v14"></path> </svg>
                   </button>
                 </div>
               </div>
@@ -443,25 +362,7 @@
                     currentNeuron_store.set(new cNeuron(i, i2));
                   }}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="lucide lucide-codesandbox group-focus:stroke-#fff"
-                    ><path
-                      d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
-                    /><polyline points="7.5 4.21 12 6.81 16.5 4.21" /><polyline
-                      points="7.5 19.79 7.5 14.6 3 12"
-                    /><polyline points="21 12 16.5 14.6 16.5 19.79" /><polyline
-                      points="3.27 6.96 12 12.01 20.73 6.96"
-                    /><line x1="12" x2="12" y1="22.08" y2="12" /></svg
-                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-codesandbox group-focus:stroke-#fff" ><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" /><polyline points="7.5 4.21 12 6.81 16.5 4.21" /><polyline points="7.5 19.79 7.5 14.6 3 12" /><polyline points="21 12 16.5 14.6 16.5 19.79" /><polyline points="3.27 6.96 12 12.01 20.73 6.96" /><line x1="12" x2="12" y1="22.08" y2="12" /></svg >
                 </button>
               {/each}
             </div>
@@ -490,25 +391,7 @@
           </div>
           <div class="divider"></div>
           <button class="btn btn-success size-min" disabled>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-codesandbox"
-              ><path
-                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
-              /><polyline points="7.5 4.21 12 6.81 16.5 4.21" /><polyline
-                points="7.5 19.79 7.5 14.6 3 12"
-              /><polyline points="21 12 16.5 14.6 16.5 19.79" /><polyline
-                points="3.27 6.96 12 12.01 20.73 6.96"
-              /><line x1="12" x2="12" y1="22.08" y2="12" /></svg
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-codesandbox" ><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" /><polyline points="7.5 4.21 12 6.81 16.5 4.21" /><polyline points="7.5 19.79 7.5 14.6 3 12" /><polyline points="21 12 16.5 14.6 16.5 19.79" /><polyline points="3.27 6.96 12 12.01 20.73 6.96" /><line x1="12" x2="12" y1="22.08" y2="12" /></svg >
           </button>
         </div>
       </div>

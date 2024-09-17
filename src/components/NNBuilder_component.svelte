@@ -3,8 +3,16 @@
   // - Make the graph animate on X axis changes
   // - Improve the NN function's algo
   // - Fix when changing a before Layer Length, the neurons weights of next Layers are not Updated
+  
+  // Libs Import
+  import { onMount } from "svelte";
+  import { Chart } from "chart.js/auto";
+  
+  // Modules Import
   import { cNeuron, Layer } from "./NN_classes.ts";
-
+  import NN_parameters from './NN_parameters.svelte'
+  import {currentNeuron, hidOutLayers} from './store.ts'
+  
   //---------------------------------------------
   // --------------Some Variable----------------- 
   //---------------------------------------------
@@ -26,7 +34,7 @@
   // Hidden Layers
   let hiddenLayersCount = 1;
   let hiddenLayersNeuronCount: number[] = [1];
-  let hiddenLayers: Layer[];
+  let hiddenLayers: Layer[]
 
   // I/O Layers
   let inputLayer = new Layer(1, 0);
@@ -36,8 +44,6 @@
   );
 
   // Hidden & Output Layer Combined
-  let hidOutLayers: Layer[];
-  let currentNeuron: cNeuron | null = null;
   function sigmoid(x: number): number {
     return 1 / (1 + Math.exp(-x));
   }
@@ -54,7 +60,7 @@
             (sum, weight, i) => sum + weight * inputs[i],
             0
           ) + neuron.bias;
-        let neuronOut = activaFn[selActivaFn](weightedSum);
+        let neuronOut = func(weightedSum);
         outputs.push(neuronOut);
       }
       inputs = outputs; // Set inputs for the next layer
@@ -66,9 +72,6 @@
   // ---------------------------------------
   // -------------- Plotting ---------------
   // ---------------------------------------
-  import { onMount } from "svelte";
-  import { Chart } from "chart.js/auto";
-
   let chart: Chart;
   let xValues: number[] = [];
   let yValues: number[] = [];
@@ -76,7 +79,8 @@
 
   // Function to generate new y values based on x values
   function updateYValues() {
-    yValues = xValues.map((x) => neuralNetwork(x, hidOutLayers));
+
+    yValues = xValues.map((x) => neuralNetwork(x, hidOutLayers, activaFn[selActivaFn]));
   }
 
   // Generate x values
@@ -132,20 +136,19 @@
         hiddenLayersNeuronCount[i - 1] || 1
       );
     });
-    hidOutLayers = [...hiddenLayers, outputLayer];
+    hidOutLayers.set([...hiddenLayers, outputLayer]);
   }
   $: updateNet(hiddenLayersCount, hiddenLayersNeuronCount);
 
-  $: {
-    console.clear();
+  hidOutLayers.subscribe(value=>{
     yValues = xValues.map((x) => {
-      return neuralNetwork(x, hidOutLayers, activaFn[selActivaFn]);
+      return neuralNetwork(x, value, activaFn[selActivaFn]);
     });
     if (chart) {
       chart.data.datasets[0].data = yValues;
       chart.update();
     }
-  }
+  })
 
   if (chart) {
     chart.data.datasets[0].data = yValues;
@@ -157,101 +160,7 @@
   <section
     class="w-full flex gap-20 xl:flex-row flex-col-reverse justify-between items-center"
   >
-    <div class="border-neutral rounded-lg  b-2 w-full max-w-xl p-10 shadow-2xl relative h-min">
-      {#if currentNeuron}
-        <div class="text-2xl">
-          Neuron
-          <div class="badge badge-lg text-xl badge-neutral">
-            {currentNeuron.idx + 1}:{currentNeuron.idy + 1}
-          </div>
-        </div>
-
-        <label class="form-control ">
-          <div class="label">
-            <span class="label-text">Bias</span>
-            <span class="label-text-alt"
-              >Value = {hidOutLayers[currentNeuron.idx].neurons[
-                currentNeuron.idy
-              ].bias}</span
-            >
-            <span class="label-text-alt">-1 to 1</span>
-          </div>
-          <input
-            type="range"
-            min="-10"
-            max="10"
-            step="0.01"
-            class="range range-lg w-full"
-            bind:value={hidOutLayers[currentNeuron.idx].neurons[
-              currentNeuron.idy
-            ].bias}
-          />
-        </label>
-      {:else}
-        <h1 class="text-2xl">Select a Neuron</h1>
-        <label class="form-control opacity-50">
-          <div class="label grid grid-cols-[1fr_auto_1fr] ">
-            <span class="label-text">Bias</span>
-            <span class="label-text-alt">Value = Nothing</span>
-            <span class="label-text-alt justify-self-end">-∞ to ∞</span>
-          </div>
-          <input
-            type="range"
-            min="-10"
-            max="10"
-            step="0.01"
-            class="range range-lg w-full"
-            disabled
-          />
-        </label>
-      {/if}
-
-      <div class="divider"></div>
-      <div class="max-h-300px overflow-y-auto">
-          {#if currentNeuron}
-            {#each hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights as _, i}
-              <label class="form-control">
-                <div class="label">
-                  <span class="label-text">Weight {i + 1}</span>
-                  <span class="label-text-alt"
-                    >Value = {hidOutLayers[currentNeuron.idx].neurons[
-                      currentNeuron.idy
-                    ].weights[i]}</span
-                  >
-                  <span class="label-text-alt">-1 to 1</span>
-                </div>
-                <input
-                  type="range"
-                  min="-1"
-                  max="1"
-                  step="0.01"
-                  class="range range-lg w-full"
-                  bind:value={hidOutLayers[currentNeuron.idx].neurons[
-                    currentNeuron.idy
-                  ].weights[i]}
-                />
-              </label>
-            {/each}
-          {:else}
-            <label class="form-control opacity-50">
-              <div class="label grid grid-cols-[1fr_auto_1fr] ">
-                <span class="label-text">Weight None</span>
-                <span class="label-text-alt">Value = Nothing</span>
-                <span class="label-text-alt justify-self-end">-∞ to ∞</span>
-              </div>
-              <input
-                type="range"
-                min="-10"
-                max="10"
-                step="0.01"
-                class="range range-lg w-full"
-                disabled
-              />
-            </label>
-          {/if}
-
-      </div>
-    </div>
+    <NN_parameters/>
     <div class="rounded-lg  w-full shadow-xl border-neutral b-2">
       <canvas class="w-full" id="functionChart"></canvas>
     </div>
@@ -528,9 +437,10 @@
                 <button
                   class="btn btn-success size-min hover:scale-103 focus:bg-#36d39944 group"
                   on:click={() => {
-                    if (!currentNeuron) currentNeuron = new cNeuron(0, 0);
-                    currentNeuron.idx = i;
-                    currentNeuron.idy = i2;
+                    if (!currentNeuron==null) {
+                      currentNeuron.set(new cNeuron(0, 0))
+                    };
+                    currentNeuron.set(new cNeuron(i, i2));
                   }}
                 >
                   <svg

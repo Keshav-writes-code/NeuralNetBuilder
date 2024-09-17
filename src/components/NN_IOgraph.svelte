@@ -82,7 +82,7 @@
   let chart: Chart;
   let xValues: number[] = [];
   let yValues: number[] = [];
-  const range = 10;
+  const range = 50;
 
   // Function to generate new y values based on x values
   function updateYValues(layers: Layer[], func: Function) {
@@ -96,6 +96,7 @@
 
   onMount(() => {
     const ctx = (document.getElementById("functionChart") as HTMLCanvasElement)?.getContext("2d");
+    if (!ctx) return
     chart = new Chart(ctx, {
       type: "line",
       data: {

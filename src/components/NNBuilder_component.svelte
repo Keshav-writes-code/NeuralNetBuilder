@@ -11,7 +11,7 @@
   // Modules Import
   import { cNeuron, Layer } from "./NN_classes.ts";
   import NN_parameters from './NN_parameters.svelte'
-  import {currentNeuron, hidOutLayers} from './store.ts'
+  import {currentNeuron_store, hidOutLayers_store} from './store.ts'
   
   //---------------------------------------------
   // --------------Some Variable----------------- 
@@ -80,7 +80,7 @@
   // Function to generate new y values based on x values
   function updateYValues() {
 
-    yValues = xValues.map((x) => neuralNetwork(x, hidOutLayers, activaFn[selActivaFn]));
+    yValues = xValues.map((x) => neuralNetwork(x, hidOutLayers_store, activaFn[selActivaFn]));
   }
 
   // Generate x values
@@ -136,11 +136,11 @@
         hiddenLayersNeuronCount[i - 1] || 1
       );
     });
-    hidOutLayers.set([...hiddenLayers, outputLayer]);
+    hidOutLayers_store.set([...hiddenLayers, outputLayer]);
   }
   $: updateNet(hiddenLayersCount, hiddenLayersNeuronCount);
 
-  hidOutLayers.subscribe(value=>{
+  hidOutLayers_store.subscribe(value=>{
     yValues = xValues.map((x) => {
       return neuralNetwork(x, value, activaFn[selActivaFn]);
     });
@@ -437,10 +437,10 @@
                 <button
                   class="btn btn-success size-min hover:scale-103 focus:bg-#36d39944 group"
                   on:click={() => {
-                    if (!currentNeuron==null) {
-                      currentNeuron.set(new cNeuron(0, 0))
+                    if (!currentNeuron_store==null) {
+                      currentNeuron_store.set(new cNeuron(0, 0))
                     };
-                    currentNeuron.set(new cNeuron(i, i2));
+                    currentNeuron_store.set(new cNeuron(i, i2));
                   }}
                 >
                   <svg

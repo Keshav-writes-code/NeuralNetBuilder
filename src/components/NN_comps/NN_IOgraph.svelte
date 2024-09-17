@@ -9,7 +9,7 @@
     selActivaFn_store,
     hiddenLayersNeuronCount_store,
     hiddenLayersCount_store,
-  } from "./store.ts";
+  } from "../store.ts";
 
   //---------------------------------------------
   // --------------Some Variable-----------------

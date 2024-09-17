@@ -4,7 +4,7 @@
     hiddenLayersCount_store,
     hiddenLayersNeuronCount_store,
     currentNeuron_store,
-  } from "./store.ts";
+  } from "../store.ts";
   let hiddenLayersCount: number;
   hiddenLayersCount_store.subscribe((value) => {
     hiddenLayersCount = value;

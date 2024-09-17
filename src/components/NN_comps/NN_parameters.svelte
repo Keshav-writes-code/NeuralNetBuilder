@@ -1,5 +1,5 @@
 <script>
-  import { currentNeuron_store, hidOutLayers_store } from "./store.ts";
+  import { currentNeuron_store, hidOutLayers_store } from "../store.ts";
   let hidOutLayers;
 
   hidOutLayers_store.subscribe(value => {

@@ -7,3 +7,4 @@ Just a Basic 1 in 1 out Neural Net Playground nothing too fancy
 - [ ] Make the graph animate on X axis changes
 - [ ] Improve the NN function's algo
 - [ ] Fix when changing a before Layer Length, the neurons weights of next Layers are not Updated
+- [ ] Fix Starfiled not showing

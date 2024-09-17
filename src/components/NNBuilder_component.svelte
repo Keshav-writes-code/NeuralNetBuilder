@@ -1,9 +1,5 @@
 <script lang="ts">
-  // Things to DO!
-  // - Make the graph animate on X axis changes
-  // - Improve the NN function's algo
-  // - Fix when changing a before Layer Length, the neurons weights of next Layers are not Updated
-  
+
   import NN_parameters from './NN_parameters.svelte'
   import NN_layers from './NN_layers.svelte';
   import NN_specs from './NN_specs.svelte';

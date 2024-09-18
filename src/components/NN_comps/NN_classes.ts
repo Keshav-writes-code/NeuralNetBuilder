@@ -8,13 +8,13 @@ export class Neuron {
   weights: number[];
 
   constructor(prevLayer_neurons: number) {
-    const randRange = 1; //means -10 to 10
+    const randRange = 0;
     this.value = 0;
     this.bias = decimalRounder(Math.random() * randRange * 2 - randRange);
     this.weights = new Array(prevLayer_neurons).fill(0);
-    this.weights = this.weights.map(() =>
-      decimalRounder(Math.random() * randRange * 2 - randRange)
-    );
+    // this.weights = this.weights.map(() =>
+    //   decimalRounder(Math.random() * randRange * 2 - randRange)
+    // );
   }
 }
 

@@ -1,21 +1,28 @@
-<script>
+<script lang="ts">
+  import {Layer, cNeuron} from './NN_classes.ts'
   import { currentNeuron_store, hidOutLayers_store } from "../store.ts";
-  let hidOutLayers;
+  let hidOutLayers: Layer[];
 
   hidOutLayers_store.subscribe(value => {
     hidOutLayers = value;
   });
 
-  function updateNet(hidOutLayers) {
+  function updateNet(hidOutLayers: Layer[]) {
     hidOutLayers_store.set(hidOutLayers);
   }
 
   $: updateNet(hidOutLayers);
 
-  let currentNeuron;
+  let currentNeuron: cNeuron | null;
   currentNeuron_store.subscribe((value) => {
     currentNeuron = value;
   });
+
+  let biasRangeMax: number = 100
+  let biasRangeMin: number = -100
+  let wieghtRangeMax: number = 1
+  let wieghtRangeMin: number = -1
+
 </script>
 
 <div
@@ -30,18 +37,22 @@
     </div>
 
     <label class="form-control">
-      <div class="label">
+      <div class="label grid grid-cols-[1fr_auto_1fr]">
         <span class="label-text">Bias</span>
         <span class="label-text-alt"
           >Value = {hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy]
             .bias}</span
         >
-        <span class="label-text-alt">-1 to 1</span>
+        <span class="label-text-alt justify-self-end">
+          <input type="text" placeholder="Type here" class=" text-center badge badge-neutral badge-lg w-[3.5rem]" bind:value={biasRangeMin} />
+          to
+          <input type="text" placeholder="Type here" class=" text-center badge badge-neutral badge-lg w-[3.5rem]" bind:value={biasRangeMax} />
+        </span>
       </div>
       <input
         type="range"
-        min="-10"
-        max="10"
+        min={biasRangeMin}
+        max={biasRangeMax}
         step="0.01"
         class="range range-lg w-full"
         bind:value={hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy]
@@ -72,19 +83,23 @@
     {#if currentNeuron}
       {#each hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights as _, i}
         <label class="form-control">
-          <div class="label">
+          <div class="label grid grid-cols-[1fr_auto_1fr]">
             <span class="label-text">Weight {i + 1}</span>
             <span class="label-text-alt"
               >Value = {hidOutLayers[currentNeuron.idx].neurons[
                 currentNeuron.idy
               ].weights[i]}</span
             >
-            <span class="label-text-alt">-1 to 1</span>
+            <span class="label-text-alt justify-self-end">
+              <input type="text" placeholder="Type here" class=" text-center badge badge-neutral badge-lg w-[3rem]" bind:value={wieghtRangeMin} />
+              to
+              <input type="text" placeholder="Type here" class=" text-center badge badge-neutral badge-lg w-[3rem]" bind:value={wieghtRangeMax} />
+            </span>
           </div>
           <input
             type="range"
-            min="-1"
-            max="1"
+            min={wieghtRangeMin}
+            max={wieghtRangeMax}
             step="0.01"
             class="range range-lg w-full"
             bind:value={hidOutLayers[currentNeuron.idx].neurons[

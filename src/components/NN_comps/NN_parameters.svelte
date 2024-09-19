@@ -27,7 +27,7 @@
 </script>
 
 <div
-  class="border-neutral rounded-lg b-2 w-full max-w-xl p-10 shadow-2xl relative h-min"
+  class="rounded-lg border-neutral-700 b-1 w-full max-w-xl p-10 shadow-2xl relative h-min"
 >
   {#if currentNeuron}
     <div class="text-2xl">

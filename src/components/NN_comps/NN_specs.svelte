@@ -31,7 +31,7 @@
 </script>
 
 <div
-  class="w-full  rounded-lg grid grid-cols-2 place-items-center gap-8 mb-4 *:flex *:flex-col *:gap-2"
+  class="w-full rounded-lg grid grid-cols-2 place-items-center gap-8 mb-4 *:flex *:flex-col *:gap-2"
 >
   <div class=" rounded-lg max-w-[350px] justify-self-end ">
     <p class="text-gray-400 text-sm" > Hidden layers </p>

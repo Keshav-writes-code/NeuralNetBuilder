@@ -43,7 +43,7 @@
           >Value = {hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy]
             .bias}</span
         >
-        <span class="label-text-alt justify-self-end">
+        <span class="label-text-alt justify-self-end flex items-center gap-1">
           <input type="text" placeholder="Type here" class=" text-center badge badge-neutral badge-lg w-[3.5rem]" bind:value={biasRangeMin} />
           to
           <input type="text" placeholder="Type here" class=" text-center badge badge-neutral badge-lg w-[3.5rem]" bind:value={biasRangeMax} />
@@ -57,6 +57,10 @@
         class="range range-lg w-full"
         bind:value={hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy]
           .bias}
+        on:dblclick={() => {
+          if (!currentNeuron) return
+          hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].bias = 0
+        }}
       />
     </label>
   {:else}
@@ -90,7 +94,7 @@
                 currentNeuron.idy
               ].weights[i]}</span
             >
-            <span class="label-text-alt justify-self-end">
+            <span class="label-text-alt justify-self-end gap-1 flex items-center ">
               <input type="text" placeholder="Type here" class=" text-center badge badge-neutral badge-lg w-[3rem]" bind:value={wieghtRangeMin} />
               to
               <input type="text" placeholder="Type here" class=" text-center badge badge-neutral badge-lg w-[3rem]" bind:value={wieghtRangeMax} />
@@ -105,6 +109,10 @@
             bind:value={hidOutLayers[currentNeuron.idx].neurons[
               currentNeuron.idy
             ].weights[i]}
+            on:dblclick={() => {
+              if (!currentNeuron) return
+              hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights[i] = 0
+            }}
           />
         </label>
       {/each}

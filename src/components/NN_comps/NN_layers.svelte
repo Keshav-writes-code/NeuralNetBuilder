@@ -22,7 +22,7 @@
 </script>
 
 <div
-  class="flex sm:gap-8 h-730px border-neutral b-2 py-8 px-10 rounded-lg overflow-x-auto w-full"
+  class="flex sm:gap-8 h-730px shadow-2xl border-neutral b-2 py-8 px-10 rounded-lg overflow-x-auto w-full"
 >
   <div class=" flex flex-col gap-2 items-center">
     <div

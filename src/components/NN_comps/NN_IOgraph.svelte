@@ -156,6 +156,6 @@
   }
 </script>
 
-<div class="rounded-lg w-full shadow-xl border-neutral b-2">
+<div class="rounded-lg w-full border-neutral b-2 shadow-2xl">
   <canvas class="w-full" id="functionChart"></canvas>
 </div>

@@ -66,7 +66,7 @@
           if (!currentNeuron) return
           const currentTime = new Date().getTime();
           const tapLength = currentTime - lastTap;
-          if (tapLength < 300 && tapLength > 0) { // Adjust the interval as needed
+          if (tapLength < 200 && tapLength > 0) { // Adjust the interval as needed
             hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].bias = 0
           }
           lastTap = currentTime;

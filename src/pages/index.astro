@@ -1,6 +1,8 @@
 ---
-import NNbuilder_component from "../components/NN_comps/NNBuilder_component.svelte"
-
+import NN_parameters from '../components/NN_comps/NN_parameters.svelte';
+import NN_layers from '../components/NN_comps/NN_layers.svelte';
+import NN_specs from '../components/NN_comps/NN_specs.svelte';
+import NN_IOgraph from '../components/NN_comps/NN_IOgraph.svelte';
 
 ---
 
@@ -13,7 +15,23 @@ import NNbuilder_component from "../components/NN_comps/NNBuilder_component.svel
 		<title>Astro</title>
 	</head>
 	<body class="w-full grid place-items-center" >
-		<NNbuilder_component client:only="svelte"/>
-		
+		<main class="w-full grid place-items-center *:sm:px-10 *:px-5 py-10">
+			<section
+			  class="w-full flex gap-20 xl:flex-row flex-col-reverse justify-between items-center"
+			>
+			  <NN_parameters client:load/>
+			  <NN_IOgraph client:load/>
+			</section>
+			<section class=" grid place-items-center w-full mt-10">
+			  <div class="my-2 flex items-center justify-between gap-10">
+				<h1 class="text-3xl">Neural Network</h1>
+			  </div>
+		  
+			  <div class="w-full max-w-[1530px]">
+				<NN_specs client:load/>
+				<NN_layers client:load/>
+			  </div>
+			</section>
+    </main>
 	</body>
 </html>

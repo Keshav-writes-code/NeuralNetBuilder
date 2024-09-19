@@ -3,6 +3,7 @@ import { defineConfig } from 'unocss'
 import { presetUno } from 'unocss'
 import { presetDaisy } from 'unocss-preset-daisy'
 import transformerVariantGroup from '@unocss/transformer-variant-group'
+import presetMini from '@unocss/preset-mini'
 
 export default defineConfig({
   presets: [
@@ -10,6 +11,7 @@ export default defineConfig({
     presetDaisy({
       themes: ["business", "dark", "sunset"],
     }),
+    presetMini(),
   ],
   transformers: [
     transformerVariantGroup(),

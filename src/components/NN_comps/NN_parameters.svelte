@@ -23,6 +23,7 @@
   let wieghtRangeMax: number = 1
   let wieghtRangeMin: number = -1
 
+  let lastTap = 0;
 </script>
 
 <div
@@ -60,6 +61,15 @@
         on:dblclick={() => {
           if (!currentNeuron) return
           hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].bias = 0
+        }}
+        on:touchend={() => {
+          if (!currentNeuron) return
+          const currentTime = new Date().getTime();
+          const tapLength = currentTime - lastTap;
+          if (tapLength < 300 && tapLength > 0) { // Adjust the interval as needed
+            hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].bias = 0
+          }
+          lastTap = currentTime;
         }}
       />
     </label>
@@ -112,6 +122,15 @@
             on:dblclick={() => {
               if (!currentNeuron) return
               hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights[i] = 0
+            }}
+            on:touchend={() => {
+              if (!currentNeuron) return
+              const currentTime = new Date().getTime();
+              const tapLength = currentTime - lastTap;
+              if (tapLength < 300 && tapLength > 0) { // Adjust the interval as needed
+                hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights[i] = 0              
+              }
+              lastTap = currentTime;
             }}
           />
         </label>

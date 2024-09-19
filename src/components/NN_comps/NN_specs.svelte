@@ -1,4 +1,7 @@
 <script lang="ts">
+  // Implement Theme CHanger BY
+  // Changing the html tag  data-theme attribute on each select menu click
+
   import { cNeuron, af_enum } from "./NN_classes.ts";
   import {
     hiddenLayersCount_store,

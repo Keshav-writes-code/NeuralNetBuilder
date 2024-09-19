@@ -19,17 +19,17 @@ import NN_IOgraph from '../components/NN_comps/NN_IOgraph.svelte';
 			<section
 			  class="w-full flex gap-20 xl:flex-row flex-col-reverse justify-between items-center"
 			>
-			  <NN_parameters client:load/>
-			  <NN_IOgraph client:load/>
+			  <NN_parameters  client:visible/>
+			  <NN_IOgraph  client:visible/>
 			</section>
 			<section class=" grid place-items-center w-full mt-10">
 			  <div class="my-2 flex items-center justify-between gap-10">
 				<h1 class="text-3xl">Neural Network</h1>
 			  </div>
 		  
-			  <div class="w-full max-w-[1530px]">
-				<NN_specs client:load/>
-				<NN_layers client:load/>
+			  <div class="w-full max-w-90vw">
+				<NN_specs client:visible/>
+				<NN_layers client:visible/>
 			  </div>
 			</section>
     </main>

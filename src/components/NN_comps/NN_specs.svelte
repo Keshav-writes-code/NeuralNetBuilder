@@ -37,7 +37,7 @@
         class="py-2 px-3 inline-block border rounded-lg bg-neutral-900 border-neutral-700"
         data-hs-input-number=""
       >
-        <div class="flex items-center gap-x-1.5">
+        <div class="touch-manipulation flex items-center gap-x-1.5">
           <button
             type="button"
             class="size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border shadow-sm focus:outline-none disabled:opacity-50 disabled:pointer-events-none bg-neutral-900 border-neutral-700 text-white hover:bg-neutral-800 focus:bg-neutral-800"

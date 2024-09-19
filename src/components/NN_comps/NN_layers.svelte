@@ -29,7 +29,7 @@
       class="py-2 px-3 inline-block border rounded-lg bg-neutral-900 border-neutral-700"
       data-hs-input-number=""
     >
-      <div class="flex items-center gap-x-1.5">
+      <div class="flex items-center gap-x-1.5 ">
         <input
           class="p-0 w-6 bg-transparent border-0 text-center focus:ring-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none text-white"
           style="-moz-appearance: textfield;"
@@ -72,7 +72,7 @@
     {#each { length: $hiddenLayersCount_store } as _, i}
       <div class=" flex flex-col gap-2 items-center">
         <div
-          class="py-2 px-3 inline-block border rounded-lg bg-neutral-900 border-neutral-700"
+          class="touch-manipulation py-2 px-3 inline-block border rounded-lg bg-neutral-900 border-neutral-700"
           data-hs-input-number=""
         >
           <div class="flex items-center gap-x-1.5">
@@ -152,7 +152,7 @@
         <div class="divider"></div>
         {#each { length: hiddenLayersNeuronCount[i] } as _, i2}
           <button
-            class="btn btn-success size-min hover:scale-103 focus:bg-#36d39944 group"
+            class="btn btn-success touch-manipulation size-min hover:scale-103 focus:bg-#36d39944 group"
             on:click={() => {
               if (!currentNeuron == null) {
                 currentNeuron_store.set(new cNeuron(0, 0));

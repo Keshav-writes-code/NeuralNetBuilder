@@ -7,7 +7,9 @@ import transformerVariantGroup from '@unocss/transformer-variant-group'
 export default defineConfig({
   presets: [
     presetUno(),
-    presetDaisy()
+    presetDaisy({
+      themes: ["business", "dark", "sunset"],
+    }),
   ],
   transformers: [
     transformerVariantGroup(),

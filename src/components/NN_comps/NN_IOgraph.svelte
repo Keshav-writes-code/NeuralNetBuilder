@@ -133,6 +133,7 @@
   // ---------------------------------------
   // ---------- Reactivity Stuff -----------
   // ---------------------------------------
+  let oldHiddenLayers: Layer[]
   function updateNet(
     hiddenLayersCount: number,
     hiddenLayersNeuronCount: number[]
@@ -143,6 +144,33 @@
         hiddenLayersNeuronCount[i - 1] || 1
       );
     });
+
+    if (oldHiddenLayers) {
+      const shortestLayerLength = Math.min(oldHiddenLayers.length, hiddenLayers.length);
+      
+      for (let i = 0; i < shortestLayerLength; i++) {
+        const oldLayer = oldHiddenLayers[i];
+        const newLayer = hiddenLayers[i];
+        
+        const shortestNeuronLength = Math.min(oldLayer.neurons.length, newLayer.neurons.length);
+        
+        for (let j = 0; j < shortestNeuronLength; j++) {
+          const oldNeuron = oldLayer.neurons[j];
+          const newNeuron = newLayer.neurons[j];
+          
+          newNeuron.bias = oldNeuron.bias;
+          
+          const shortestWeightsLength = Math.min(oldNeuron.weights.length, newNeuron.weights.length);
+          
+          for (let k = 0; k < shortestWeightsLength; k++) {
+            newNeuron.weights[k] = oldNeuron.weights[k];
+          }
+        }
+      }
+    }
+
+    oldHiddenLayers = hiddenLayers
+
     hidOutLayers_store.set([...hiddenLayers, outputLayer]);
   }
   $: updateNet(hiddenLayersCount, hiddenLayersNeuronCount);

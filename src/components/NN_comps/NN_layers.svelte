@@ -151,8 +151,9 @@
         </div>
         <div class="divider"></div>
         {#each { length: hiddenLayersNeuronCount[i] } as _, i2}
-          <button
-            class="btn btn-success touch-manipulation size-min hover:scale-103 focus:bg-#36d39944 group"
+        <div class="flex flex-col">
+          <input id="neuron{i}{i2}" type="radio" class="peer hidden "  name="neurons" >
+          <label for="neuron{i}{i2}" class="btn peer-checked:*:stroke-#fff btn-success touch-manipulation size-min hover:scale-103 peer-checked:bg-#36d39944 group "
             on:click={() => {
               if (!currentNeuron == null) {
                 currentNeuron_store.set(new cNeuron(0, 0));
@@ -170,7 +171,7 @@
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="lucide lucide-codesandbox group-focus:stroke-#fff"
+              class="lucide lucide-codesandbox"
               ><path
                 d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
               /><polyline points="7.5 4.21 12 6.81 16.5 4.21" /><polyline
@@ -179,7 +180,9 @@
                 points="3.27 6.96 12 12.01 20.73 6.96"
               /><line x1="12" x2="12" y1="22.08" y2="12" /></svg
             >
-          </button>
+          </label>
+        </div>
+        
         {/each}
       </div>
     {/each}

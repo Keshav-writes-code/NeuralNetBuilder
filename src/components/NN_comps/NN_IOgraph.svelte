@@ -117,6 +117,11 @@
         ],
       },
       options: {
+        plugins: {
+          legend: {
+              display: false,
+          }
+        },
         scales: {
           x: {
             type: "linear",
@@ -125,7 +130,7 @@
           y: {
             beginAtZero: false,
           },
-        },
+        }
       },
     });
     NN_sampler.update(hidOutLayers, neuralNetwork, activaFn[selActivaFn])

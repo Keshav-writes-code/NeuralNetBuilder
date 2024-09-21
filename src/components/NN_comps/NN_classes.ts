@@ -33,13 +33,26 @@ export class Layer {
   constructor(size: number, prevLayerSize: number) {
     this.neurons = new Array(size).fill(0).map(() => new Neuron(prevLayerSize));
   }
-  show() {
-    console.log(this.neurons);
-  }
 }
 
 export enum af_enum {
   relu = "ReLU",
   sigmoid = "Signmoid",
   tanh = "TanH",
+}
+
+export class XYDataCollector {
+  x: number[];
+  y: number[];
+  constructor() {
+    let rangeBi = 50
+    this.x = []
+    for (let i = -rangeBi; i <= rangeBi; i += 0.1) {
+      this.x.push(i);
+    }
+    this.y = []
+  }
+  update(layers: Layer[], NNFunc: Function, activaFn: Function) {
+    this.y = this.x.map((x) => NNFunc(x, layers, activaFn));
+  }
 }

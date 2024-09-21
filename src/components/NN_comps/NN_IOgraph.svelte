@@ -3,17 +3,19 @@
   import { onMount } from "svelte";
   import { Chart } from "chart.js/auto";
 
-  import { Layer, af_enum } from "./NN_classes.ts";
+  import { Layer, af_enum, cNeuron, XYDataCollector, Neuron } from "./NN_classes.ts";
   import {
     hidOutLayers_store,
     selActivaFn_store,
     hiddenLayersNeuronCount_store,
     hiddenLayersCount_store,
+    currentNeuron_store,
   } from "../store.ts";
 
   //---------------------------------------------
   // --------------Some Variable-----------------
   //---------------------------------------------
+  let currentNeuronLayers: Layer[] = [];
 
   const activaFn = {
     [af_enum.relu]: (x: number) => Math.max(0, x),
@@ -25,6 +27,11 @@
   selActivaFn_store.subscribe((value) => {
     selActivaFn = value;
   });
+  
+  let currentNeuron: cNeuron | null = null
+  currentNeuron_store.subscribe((value) => {
+    currentNeuron = value;
+  })
 
   let hidOutLayers: Layer[];
   hidOutLayers_store.subscribe((value) => {
@@ -80,19 +87,8 @@
   // -------------- Plotting ---------------
   // ---------------------------------------
   let chart: Chart;
-  let xValues: number[] = [];
-  let yValues: number[] = [];
-  const range = 50;
-
-  // Function to generate new y values based on x values
-  function updateYValues(layers: Layer[], func: Function) {
-    yValues = xValues.map((x) => neuralNetwork(x, layers, func));
-  }
-
-  // Generate x values
-  for (let x = -range; x <= range; x += 0.1) {
-    xValues.push(x); // Keep x values as strings for labels
-  }
+  let NN_sampler = new XYDataCollector()
+  let currentNeuronOut_sampler = new XYDataCollector()
 
   onMount(() => {
     const ctx = (document.getElementById("functionChart") as HTMLCanvasElement)?.getContext("2d");
@@ -100,16 +96,24 @@
     chart = new Chart(ctx, {
       type: "line",
       data: {
-        labels: xValues,
+        labels: NN_sampler.x,
         datasets: [
           {
             label: " f(x) = NeuralNet(x)",
-            data: yValues,
+            data: NN_sampler.y,
             borderColor: "rgb(75, 192, 192)",
             fill: false,
             tension: 0,
             pointRadius: 0,
           },
+          {
+            label: " f(x) = CurrentNeuronOut(x)",
+            data: currentNeuronOut_sampler.y,
+            borderColor: "rgb(0, 2, 192)",
+            fill: false,
+            tension: 0,
+            pointRadius: 0,
+          }
         ],
       },
       options: {
@@ -124,8 +128,10 @@
         },
       },
     });
-    updateYValues(hidOutLayers, activaFn[selActivaFn]);
-    chart.data.datasets[0].data = yValues;
+    NN_sampler.update(hidOutLayers, neuralNetwork, activaFn[selActivaFn])
+    currentNeuronOut_sampler.update(currentNeuronLayers, neuralNetwork, activaFn[selActivaFn])
+    chart.data.datasets[0].data = NN_sampler.y;
+    chart.data.datasets[1].data = currentNeuronOut_sampler.y;
     chart.options.animation = false; // disables all animations
     chart.update();
   });
@@ -170,15 +176,47 @@
     }
 
     oldHiddenLayers = hiddenLayers
-
     hidOutLayers_store.set([...hiddenLayers, outputLayer]);
   }
+  // update Network Structure when Neural Network Specs Changes
   $: updateNet(hiddenLayersCount, hiddenLayersNeuronCount);
+  
+  // Update Current Neuron Out Graph when Current Neuron Changes
+  $: currentNeuron, (()=>{
+    currentNeuronLayers = [];
+    if (!currentNeuron) return
+    for (let i = 0; i < hidOutLayers.length; i++) {
+      const layer = hidOutLayers[i];
+      if (currentNeuron.idx > i) {
+        currentNeuronLayers.push(layer);
+      }
+    }
+    currentNeuronLayers.push({
+      neurons: [
+        hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy],
+      ]
+    });
+    currentNeuronLayers.push({
+      neurons: [
+        new Neuron(1),
+      ]
+    });
 
-  $: {
-    updateYValues(hidOutLayers, activaFn[selActivaFn]);
+    currentNeuronOut_sampler.update(currentNeuronLayers, neuralNetwork, activaFn[selActivaFn])
     if (chart) {
-      chart.data.datasets[0].data = yValues;
+      chart.data.datasets[1].data = currentNeuronOut_sampler.y;
+      chart.update();
+    }
+  })()
+
+  // Update NN Graphs when Neural Network Parameters Changes
+  $: {
+    NN_sampler.update(hidOutLayers, neuralNetwork, activaFn[selActivaFn])
+    currentNeuronOut_sampler.update(currentNeuronLayers, neuralNetwork, activaFn[selActivaFn])
+    
+    if (chart) {
+      chart.data.datasets[0].data = NN_sampler.y;
+      chart.data.datasets[1].data = currentNeuronOut_sampler.y;
       chart.update();
     }
   }

@@ -5,20 +5,6 @@
     hiddenLayersNeuronCount_store,
     currentNeuron_store,
   } from "../store.ts";
-  let hiddenLayersCount: number;
-  hiddenLayersCount_store.subscribe((value) => {
-    hiddenLayersCount = value;
-  });
-
-  let hiddenLayersNeuronCount: number[];
-  hiddenLayersNeuronCount_store.subscribe((value) => {
-    hiddenLayersNeuronCount = value;
-  });
-
-  let currentNeuron: cNeuron | null;
-  currentNeuron_store.subscribe((value) => {
-    currentNeuron = value;
-  });
 </script>
 
 <div
@@ -83,7 +69,7 @@
               aria-label="Decrease"
               data-hs-input-number-decrement=""
               on:click={() =>
-                hiddenLayersNeuronCount[i] > 1
+                $hiddenLayersNeuronCount_store[i] > 1
                   ? hiddenLayersNeuronCount_store.update((value) =>{
                     const updatedValues = [...value];
                     updatedValues[i] = value[i] - 1;
@@ -114,7 +100,7 @@
               placeholder="1"
               min="1"
               max="10"
-              bind:value={hiddenLayersNeuronCount[i]}
+              bind:value={$hiddenLayersNeuronCount_store[i]}
               data-hs-input-number-input=""
             />
             <button
@@ -124,7 +110,7 @@
               aria-label="Increase"
               data-hs-input-number-increment=""
               on:click={() =>
-                hiddenLayersNeuronCount[i] < 10
+                $hiddenLayersNeuronCount_store[i] < 10
                   ? hiddenLayersNeuronCount_store.update((value) =>{
                     const updatedValues = [...value];
                     updatedValues[i] = value[i] + 1;
@@ -150,12 +136,12 @@
           </div>
         </div>
         <div class="divider"></div>
-        {#each { length: hiddenLayersNeuronCount[i] } as _, i2}
+        {#each { length: $hiddenLayersNeuronCount_store[i] } as _, i2}
         <div class="flex flex-col">
           <input id="neuron{i}{i2}" type="radio" class="peer hidden "  name="neurons" >
           <label for="neuron{i}{i2}" class="btn peer-checked:*:stroke-#fff btn-success touch-manipulation size-min hover:scale-103 peer-checked:bg-#36d39944 group "
             on:click={() => {
-              if (!currentNeuron == null) {
+              if (!$currentNeuron_store == null) {
                 currentNeuron_store.set(new cNeuron(0, 0));
               }
               currentNeuron_store.set(new cNeuron(i, i2));

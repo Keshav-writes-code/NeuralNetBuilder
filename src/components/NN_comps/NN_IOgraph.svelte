@@ -3,7 +3,7 @@
   import { onMount } from "svelte";
   import { Chart } from "chart.js/auto";
 
-  import { Layer, af_enum, cNeuron, XYDataCollector, Neuron } from "./NN_classes.ts";
+  import { Layer, af_enum, XYDataCollector, Neuron } from "./NN_classes.ts";
   import {
     hidOutLayers_store,
     selActivaFn_store,
@@ -23,29 +23,6 @@
     [af_enum.tanh]: (x: number) => Math.tanh(x),
   };
 
-  let selActivaFn: af_enum;
-  selActivaFn_store.subscribe((value) => {
-    selActivaFn = value;
-  });
-  
-  let currentNeuron: cNeuron | null = null
-  currentNeuron_store.subscribe((value) => {
-    currentNeuron = value;
-  })
-
-  let hidOutLayers: Layer[];
-  hidOutLayers_store.subscribe((value) => {
-    hidOutLayers = value;
-  });
-
-  let hiddenLayersNeuronCount: number[] = [1];
-  hiddenLayersNeuronCount_store.subscribe((value) => {
-    hiddenLayersNeuronCount = value;
-  });
-  let hiddenLayersCount = 1;
-  hiddenLayersCount_store.subscribe((value) => {
-    hiddenLayersCount = value;
-  })
   //---------------------------------------------
   // Setting up the Input, Hidden & Output Layers
   //---------------------------------------------
@@ -57,7 +34,7 @@
   let inputLayer = new Layer(1, 0);
   let outputLayer = new Layer(
     1,
-    hiddenLayersNeuronCount[hiddenLayersNeuronCount.length - 1]
+    $hiddenLayersNeuronCount_store[$hiddenLayersNeuronCount_store.length - 1]
   );
 
   // Hidden & Output Layer Combined
@@ -133,8 +110,8 @@
         }
       },
     });
-    NN_sampler.update(hidOutLayers, neuralNetwork, activaFn[selActivaFn])
-    currentNeuronOut_sampler.update(currentNeuronLayers, neuralNetwork, activaFn[selActivaFn])
+    NN_sampler.update($hidOutLayers_store, neuralNetwork, activaFn[$selActivaFn_store])
+    currentNeuronOut_sampler.update(currentNeuronLayers, neuralNetwork, activaFn[$selActivaFn_store])
     chart.data.datasets[0].data = NN_sampler.y;
     chart.data.datasets[1].data = currentNeuronOut_sampler.y;
     chart.options.animation = false; // disables all animations
@@ -184,21 +161,21 @@
     hidOutLayers_store.set([...hiddenLayers, outputLayer]);
   }
   // update Network Structure when Neural Network Specs Changes
-  $: updateNet(hiddenLayersCount, hiddenLayersNeuronCount);
+  $: updateNet($hiddenLayersCount_store, $hiddenLayersNeuronCount_store);
   
   // Update Current Neuron Out Graph when Current Neuron Changes
-  $: currentNeuron, (()=>{
+  currentNeuron_store.subscribe((value) => {
     currentNeuronLayers = [];
-    if (!currentNeuron) return
-    for (let i = 0; i < hidOutLayers.length; i++) {
-      const layer = hidOutLayers[i];
-      if (currentNeuron.idx > i) {
+    if (!value) return
+    for (let i = 0; i < $hidOutLayers_store.length; i++) {
+      const layer = $hidOutLayers_store[i];
+      if (value.idx > i) {
         currentNeuronLayers.push(layer);
       }
     }
     currentNeuronLayers.push({
       neurons: [
-        hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy],
+        $hidOutLayers_store[value.idx].neurons[value.idy],
       ]
     });
     currentNeuronLayers.push({
@@ -207,17 +184,17 @@
       ]
     });
 
-    currentNeuronOut_sampler.update(currentNeuronLayers, neuralNetwork, activaFn[selActivaFn])
+    currentNeuronOut_sampler.update(currentNeuronLayers, neuralNetwork, activaFn[$selActivaFn_store])
     if (chart) {
       chart.data.datasets[1].data = currentNeuronOut_sampler.y;
       chart.update();
     }
-  })()
+  })
 
   // Update NN Graphs when Neural Network Parameters Changes
   $: {
-    NN_sampler.update(hidOutLayers, neuralNetwork, activaFn[selActivaFn])
-    currentNeuronOut_sampler.update(currentNeuronLayers, neuralNetwork, activaFn[selActivaFn])
+    NN_sampler.update($hidOutLayers_store, neuralNetwork, activaFn[$selActivaFn_store])
+    currentNeuronOut_sampler.update(currentNeuronLayers, neuralNetwork, activaFn[$selActivaFn_store])
     
     if (chart) {
       chart.data.datasets[0].data = NN_sampler.y;

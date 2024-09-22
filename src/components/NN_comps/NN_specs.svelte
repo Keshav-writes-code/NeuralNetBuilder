@@ -2,32 +2,12 @@
   // Implement Theme CHanger BY
   // Changing the html tag  data-theme attribute on each select menu click
 
-  import { cNeuron, af_enum } from "./NN_classes.ts";
+  import { af_enum } from "./NN_classes.ts";
   import {
     hiddenLayersCount_store,
     hiddenLayersNeuronCount_store,
-    currentNeuron_store,
     selActivaFn_store,
   } from "../store.ts";
-  let hiddenLayersCount: number;
-  hiddenLayersCount_store.subscribe((value) => {
-    hiddenLayersCount = value;
-  });
-
-  let hiddenLayersNeuronCount: number[];
-  hiddenLayersNeuronCount_store.subscribe((value) => {
-    hiddenLayersNeuronCount = value;
-  });
-
-  let currentNeuron: cNeuron | null;
-  currentNeuron_store.subscribe((value) => {
-    currentNeuron = value;
-  });
-
-  let selActivaFn: af_enum;
-  selActivaFn_store.subscribe((value) => {
-    selActivaFn = value;
-  })
 </script>
 
 <div
@@ -48,7 +28,7 @@
             aria-label="Decrease"
             data-hs-input-number-decrement=""
             on:click={() => {
-              if (hiddenLayersCount > 1) {
+              if ($hiddenLayersCount_store > 1) {
                 hiddenLayersCount_store.update(val => val - 1);
                 hiddenLayersNeuronCount_store.update(val => val.slice(0, -1));
               }
@@ -64,7 +44,7 @@
             placeholder="1"
             min="1"
             max="8"
-            bind:value={hiddenLayersCount}
+            bind:value={$hiddenLayersCount_store}
             data-hs-input-number-input=""
           />
           <button
@@ -74,7 +54,7 @@
             aria-label="Increase"
             data-hs-input-number-increment=""
             on:click={() => {
-              if (hiddenLayersCount < 8) {
+              if ($hiddenLayersCount_store < 8) {
                 hiddenLayersCount_store.update(val => val + 1);
                 hiddenLayersNeuronCount_store.update(val => [...val, 1]);
               }
@@ -90,7 +70,7 @@
     <p class="text-gray-400 text-sm"> Activation Function </p>
     <div class="dropdown ">
       <div tabindex="0" role="button" class="btn m-1">
-        {selActivaFn}
+        {$selActivaFn_store}
         <svg width="12px" height="12px" class="inline-block h-2 w-2 fill-current opacity-60" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048" > <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z" ></path> </svg>
       </div>
       <ul

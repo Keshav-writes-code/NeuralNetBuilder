@@ -1,22 +1,12 @@
 <script lang="ts">
-  import {Layer, cNeuron} from './NN_classes.ts'
+  import {Layer} from './NN_classes.ts'
   import { currentNeuron_store, hidOutLayers_store } from "../store.ts";
-  let hidOutLayers: Layer[];
-
-  hidOutLayers_store.subscribe(value => {
-    hidOutLayers = value;
-  });
 
   function updateNet(hidOutLayers: Layer[]) {
     hidOutLayers_store.set(hidOutLayers);
   }
 
-  $: updateNet(hidOutLayers);
-
-  let currentNeuron: cNeuron | null;
-  currentNeuron_store.subscribe((value) => {
-    currentNeuron = value;
-  });
+  $: updateNet($hidOutLayers_store);
 
   let biasRangeMax: number = 100
   let biasRangeMin: number = -100
@@ -29,11 +19,11 @@
 <div
   class="rounded-lg border-neutral-700 b-1 w-full max-w-xl p-10 shadow-2xl relative h-min"
 >
-  {#if currentNeuron}
+  {#if $currentNeuron_store}
     <div class="text-2xl">
       Neuron
       <div class="badge badge-lg text-xl badge-neutral">
-        {currentNeuron.idx + 1}:{currentNeuron.idy + 1}
+        {$currentNeuron_store.idx + 1}:{$currentNeuron_store.idy + 1}
       </div>
     </div>
 
@@ -41,7 +31,7 @@
       <div class="label grid grid-cols-[1fr_auto_1fr]">
         <span class="label-text">Bias</span>
         <span class="label-text-alt"
-          >Value = {hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy]
+          >Value = {$hidOutLayers_store[$currentNeuron_store.idx].neurons[$currentNeuron_store.idy]
             .bias}</span
         >
         <span class="label-text-alt justify-self-end flex items-center gap-1">
@@ -56,18 +46,18 @@
         max={biasRangeMax}
         step="0.01"
         class="range range-lg w-full"
-        bind:value={hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy]
+        bind:value={$hidOutLayers_store[$currentNeuron_store.idx].neurons[$currentNeuron_store.idy]
           .bias}
         on:dblclick={() => {
-          if (!currentNeuron) return
-          hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].bias = 0
+          if (!$currentNeuron_store) return
+          $hidOutLayers_store[$currentNeuron_store.idx].neurons[$currentNeuron_store.idy].bias = 0
         }}
         on:touchend={() => {
-          if (!currentNeuron) return
+          if (!$currentNeuron_store) return
           const currentTime = new Date().getTime();
           const tapLength = currentTime - lastTap;
           if (tapLength < 200 && tapLength > 0) { // Adjust the interval as needed
-            hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].bias = 0
+            $hidOutLayers_store[$currentNeuron_store.idx].neurons[$currentNeuron_store.idy].bias = 0
           }
           lastTap = currentTime;
         }}
@@ -94,14 +84,14 @@
 
   <div class="divider"></div>
   <div class="max-h-300px overflow-y-auto">
-    {#if currentNeuron}
-      {#each hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights as _, i}
+    {#if $currentNeuron_store}
+      {#each $hidOutLayers_store[$currentNeuron_store.idx].neurons[$currentNeuron_store.idy].weights as _, i}
         <label class="form-control">
           <div class="label grid grid-cols-[1fr_auto_1fr]">
             <span class="label-text">Weight {i + 1}</span>
             <span class="label-text-alt"
-              >Value = {hidOutLayers[currentNeuron.idx].neurons[
-                currentNeuron.idy
+              >Value = {$hidOutLayers_store[$currentNeuron_store.idx].neurons[
+                $currentNeuron_store.idy
               ].weights[i]}</span
             >
             <span class="label-text-alt justify-self-end gap-1 flex items-center ">
@@ -116,19 +106,19 @@
             max={wieghtRangeMax}
             step="0.01"
             class="range range-lg w-full"
-            bind:value={hidOutLayers[currentNeuron.idx].neurons[
-              currentNeuron.idy
+            bind:value={$hidOutLayers_store[$currentNeuron_store.idx].neurons[
+              $currentNeuron_store.idy
             ].weights[i]}
             on:dblclick={() => {
-              if (!currentNeuron) return
-              hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights[i] = 0
+              if (!$currentNeuron_store) return
+              $hidOutLayers_store[$currentNeuron_store.idx].neurons[$currentNeuron_store.idy].weights[i] = 0
             }}
             on:touchend={() => {
-              if (!currentNeuron) return
+              if (!$currentNeuron_store) return
               const currentTime = new Date().getTime();
               const tapLength = currentTime - lastTap;
               if (tapLength < 300 && tapLength > 0) { // Adjust the interval as needed
-                hidOutLayers[currentNeuron.idx].neurons[currentNeuron.idy].weights[i] = 0              
+                $hidOutLayers_store[$currentNeuron_store.idx].neurons[$currentNeuron_store.idy].weights[i] = 0              
               }
               lastTap = currentTime;
             }}

@@ -21,6 +21,7 @@
     [af_enum.relu]: (x: number) => Math.max(0, x),
     [af_enum.sigmoid]: (x: number) => 1 / (1 + Math.exp(-x)),
     [af_enum.tanh]: (x: number) => Math.tanh(x),
+    [af_enum.binary]: (x: number) => x > 0 ? 1 : 0,
   };
 
   //---------------------------------------------
@@ -66,7 +67,6 @@
   let chart: Chart;
   let NN_sampler = new XYDataCollector()
   let currentNeuronOut_sampler = new XYDataCollector()
-
   onMount(() => {
     const ctx = (document.getElementById("functionChart") as HTMLCanvasElement)?.getContext("2d");
     if (!ctx) return

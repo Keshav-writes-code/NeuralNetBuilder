@@ -39,6 +39,7 @@ export enum af_enum {
   relu = "ReLU",
   sigmoid = "Signmoid",
   tanh = "TanH",
+  binary = "Binary"
 }
 
 export class XYDataCollector {

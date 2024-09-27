@@ -7,23 +7,24 @@
     hiddenLayersCount_store,
     hiddenLayersNeuronCount_store,
     selActivaFn_store,
+    randomisedVals_store,
   } from "../store.ts";
 </script>
 
 <div
-  class="w-full rounded-lg grid grid-cols-2 place-items-center gap-8 mb-4 *:flex *:flex-col *:gap-2"
+  class="mx-auto w-max rounded-lg flex  gap-12 mb-4 *:flex *:flex-col *:justify-between *:h-full *:gap-2"
 >
-  <div class=" rounded-lg max-w-[350px] justify-self-end ">
+  <div class="">
     <p class="text-gray-400 text-sm" > Hidden layers </p>
     <div class="relative1 max-w-xs text-gray-300">
       <div
-        class="py-2 px-3 inline-block border rounded-lg bg-neutral-900 border-neutral-700"
+        class="py-2 px-3 inline-block border rounded-btn  bg-neutral border-neutral"
         data-hs-input-number=""
       >
         <div class="touch-manipulation flex items-center gap-x-1.5">
           <button
             type="button"
-            class="size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border shadow-sm focus:outline-none disabled:opacity-50 disabled:pointer-events-none bg-neutral-900 border-neutral-700 text-white hover:bg-neutral-800 focus:bg-neutral-800"
+            class="size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border shadow-sm focus:outline-none disabled:opacity-50 disabled:pointer-events-none bg-neutral-900 border-neutral text-white hover:bg-base-content/10 focus:bg-neutral-800"
             tabindex="-1"
             aria-label="Decrease"
             data-hs-input-number-decrement=""
@@ -49,7 +50,7 @@
           />
           <button
             type="button"
-            class="size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border shadow-sm focus:outline-none disabled:opacity-50 disabled:pointer-events-none bg-neutral-900 border-neutral-700 text-white hover:bg-neutral-800 focus:bg-neutral-800"
+            class="size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border shadow-sm focus:outline-none disabled:opacity-50 disabled:pointer-events-none bg-neutral-900 border-neutral text-white hover:bg-base-content/10 focus:bg-neutral-800"
             tabindex="-1"
             aria-label="Increase"
             data-hs-input-number-increment=""
@@ -66,10 +67,10 @@
       </div>
     </div>
   </div>
-  <div class=" justify-self-start ">
+  <div class="w-130px ">
     <p class="text-gray-400 text-sm"> Activation Function </p>
     <div class="dropdown ">
-      <div tabindex="0" role="button" class="btn m-1">
+      <div tabindex="0" role="button" class="btn">
         {$selActivaFn_store}
         <svg width="12px" height="12px" class="inline-block h-2 w-2 fill-current opacity-60" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048" > <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z" ></path> </svg>
       </div>
@@ -138,6 +139,10 @@
         </li>
       </ul>
     </div>
+  </div>
+  <div class=" ">
+    <p class="text-gray-400 text-sm"> Randomised? </p>
+    <input type="checkbox" class="toggle toggle-lg" bind:checked={$randomisedVals_store}/>
   </div>
 </div>
 

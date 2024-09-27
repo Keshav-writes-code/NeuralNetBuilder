@@ -9,7 +9,7 @@ export default defineConfig({
   presets: [
     presetUno(),
     presetDaisy({
-      themes: ["business", "dark", "sunset"],
+      themes: ["business", "dark", "black", "forest"],
     }),
     presetMini(),
   ],

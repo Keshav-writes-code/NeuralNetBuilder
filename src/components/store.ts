@@ -6,3 +6,4 @@ export let hidOutLayers_store = writable<Layer[]>([]);
 export let hiddenLayersCount_store = writable<number>(1);
 export let hiddenLayersNeuronCount_store = writable<number[]>([1]);
 export let selActivaFn_store = writable<af_enum>(af_enum.relu);
+export let randomisedVals_store = writable(false);

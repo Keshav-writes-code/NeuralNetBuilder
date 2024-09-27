@@ -10,6 +10,7 @@
     hiddenLayersNeuronCount_store,
     hiddenLayersCount_store,
     currentNeuron_store,
+    randomisedVals_store
   } from "../store.ts";
 
   //---------------------------------------------
@@ -61,6 +62,7 @@
 
     return inputs.reduce((sum, output) => sum + output, 0); // Summing the final layer's outputs
   }
+
   // ---------------------------------------
   // -------------- Plotting ---------------
   // ---------------------------------------
@@ -129,10 +131,10 @@
     hiddenLayers = new Array(hiddenLayersCount).fill(0).map((_, i) => {
       return new Layer(
         hiddenLayersNeuronCount[i],
-        hiddenLayersNeuronCount[i - 1] || 1
+        hiddenLayersNeuronCount[i - 1] || 1,
+        $randomisedVals_store
       );
     });
-
     if (oldHiddenLayers) {
       const shortestLayerLength = Math.min(oldHiddenLayers.length, hiddenLayers.length);
       
@@ -204,6 +206,6 @@
   }
 </script>
 
-<div class="rounded-lg w-full border-neutral-700 b-1 shadow-2xl">
+<div class="rounded-lg w-full border-base-content/20 b-1 shadow-2xl">
   <canvas class="w-full" id="functionChart"></canvas>
 </div>

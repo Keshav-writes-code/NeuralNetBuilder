@@ -9,7 +9,6 @@
     selActivaFn_store,
     randomisedVals_store,
   } from "../store.ts";
-  import { each } from "chart.js/helpers";
 
   const activationFns = [
     {

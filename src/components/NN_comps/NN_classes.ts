@@ -7,7 +7,7 @@ export class Neuron {
   bias: number;
   weights: number[];
 
-  constructor(prevLayer_neurons: number, randomized: boolean) {
+  constructor(prevLayer_neurons: number, randomized: boolean = false) {
     const randRange = 10;
     this.value = 0;
     this.bias = 0
@@ -33,7 +33,7 @@ export class cNeuron {
 
 export class Layer {
   neurons: Neuron[];
-  constructor(size: number, prevLayerSize: number, randomized: boolean) {    
+  constructor(size: number, prevLayerSize: number, randomized: boolean = false) {    
     this.neurons = new Array(size).fill(0).map(() => new Neuron(prevLayerSize, randomized));
   }
 }

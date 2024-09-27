@@ -10,9 +10,10 @@ export class Neuron {
   constructor(prevLayer_neurons: number, randomized: boolean) {
     const randRange = 10;
     this.value = 0;
-    this.bias = decimalRounder(Math.random() * randRange * 2 - randRange);
+    this.bias = 0
     this.weights = new Array(prevLayer_neurons).fill(0);
     if (randomized) {
+      this.bias = decimalRounder(Math.random() * randRange * 2 - randRange);
       this.weights = this.weights.map(() =>
         decimalRounder(Math.random() * randRange * 2 - randRange)
       );

@@ -22,15 +22,10 @@ import NN_IOgraph from '../components/NN_comps/NN_IOgraph.svelte';
 			  <NN_parameters  client:visible/>
 			  <NN_IOgraph  client:visible/>
 			</section>
-			<section class=" grid place-items-center w-full mt-10">
-			  <div class="my-2 flex items-center justify-between gap-10">
-				<h1 class="text-3xl">Neural Network</h1>
-			  </div>
-		  
-			  <div class="w-full 2xl:max-w-[1530px] max-w-90vw">
-				<NN_specs client:visible/>
-				<NN_layers client:visible/>
-			  </div>
+			<section class=" w-full 2xl:max-w-[1530px] max-w-90vw mt-10">
+			<div class="divider max-w-50% mx-auto "></div>		  
+			<NN_specs client:visible/>
+			<NN_layers client:visible/>
 			</section>
     </main>
 	</body>

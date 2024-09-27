@@ -8,7 +8,7 @@
 </script>
 
 <div
-  class="sm:gap-8 h-730px shadow-2xl border-base-content/20 b-1 py-8 sm:px-10 px-6 rounded-lg overflow-x-auto w-full grid grid-cols-[auto_auto_1fr_auto_auto] "
+  class="sm:gap-8 h-739px shadow-2xl border-base-content/20 b-1 py-8 sm:px-10 px-6 rounded-lg overflow-x-auto w-full grid grid-cols-[auto_auto_1fr_auto_auto] "
 >
   <div class=" flex flex-col gap-2 items-center">
     <div

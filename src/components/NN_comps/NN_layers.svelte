@@ -8,11 +8,11 @@
 </script>
 
 <div
-  class="sm:gap-8 h-730px shadow-2xl border-neutral-700 b-1 py-8 sm:px-10 px-6 rounded-lg overflow-x-auto w-full grid grid-cols-[auto_auto_1fr_auto_auto] "
+  class="sm:gap-8 h-730px shadow-2xl border-base-content/20 b-1 py-8 sm:px-10 px-6 rounded-lg overflow-x-auto w-full grid grid-cols-[auto_auto_1fr_auto_auto] "
 >
   <div class=" flex flex-col gap-2 items-center">
     <div
-      class="py-2 px-3 inline-block border rounded-lg bg-neutral-900 border-neutral-700"
+      class="py-2 px-3 inline-block border rounded-lg bg-neutral-900 border-neutral"
       data-hs-input-number=""
     >
       <div class="flex items-center gap-x-1.5 ">
@@ -30,7 +30,7 @@
         />
       </div>
     </div>
-    <div class="divider"></div>
+    <div class=""></div>
     <button class="btn btn-success size-min" disabled>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -58,13 +58,13 @@
     {#each { length: $hiddenLayersCount_store } as _, i}
       <div class=" flex flex-col gap-2 items-center">
         <div
-          class="touch-manipulation py-2 px-3 inline-block border rounded-lg bg-neutral-900 border-neutral-700"
+          class="touch-manipulation py-2 px-3 inline-block border rounded-lg bg-neutral-900 border-neutral"
           data-hs-input-number=""
         >
           <div class="flex items-center gap-x-1.5">
             <button
               type="button"
-              class="size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border shadow-sm focus:outline-none disabled:opacity-50 disabled:pointer-events-none bg-neutral-900 border-neutral-700 text-white hover:bg-neutral-800 focus:bg-neutral-800"
+              class="size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border shadow-sm focus:outline-none disabled:opacity-50 disabled:pointer-events-none bg-neutral-900 border-neutral text-white hover:bg-neutral-800 focus:bg-neutral-800"
               tabindex="-1"
               aria-label="Decrease"
               data-hs-input-number-decrement=""
@@ -105,7 +105,7 @@
             />
             <button
               type="button"
-              class="size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border shadow-sm focus:outline-none disabled:opacity-50 disabled:pointer-events-none bg-neutral-900 border-neutral-700 text-white hover:bg-neutral-800 focus:bg-neutral-800"
+              class="size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border shadow-sm focus:outline-none disabled:opacity-50 disabled:pointer-events-none bg-neutral-900 border-neutral text-white hover:bg-neutral-800 focus:bg-neutral-800"
               tabindex="-1"
               aria-label="Increase"
               data-hs-input-number-increment=""
@@ -176,7 +176,7 @@
   <div class="divider divider-horizontal"></div>
   <div class=" flex flex-col gap-2 items-center">
     <div
-      class="py-2 px-3 inline-block border rounded-lg bg-neutral-900 border-neutral-700"
+      class="py-2 px-3 inline-block border rounded-lg bg-neutral-900 border-neutral"
       data-hs-input-number=""
     >
       <div class="flex items-center gap-x-1.5">

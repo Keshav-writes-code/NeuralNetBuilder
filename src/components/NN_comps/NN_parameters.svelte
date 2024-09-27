@@ -17,7 +17,7 @@
 </script>
 
 <div
-  class="rounded-lg border-neutral-700 b-1 w-full max-w-xl p-10 shadow-2xl relative h-min"
+  class="rounded-lg border-neutral b-1 w-full max-w-xl p-10 shadow-2xl relative h-min"
 >
   {#if $currentNeuron_store}
     <div class="text-2xl">

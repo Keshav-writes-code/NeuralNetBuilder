@@ -109,7 +109,9 @@
           y: {
             beginAtZero: false,
           },
-        }
+        },
+        responsive: true,
+        maintainAspectRatio: false,
       },
     });
     NN_sampler.update($hidOutLayers_store, neuralNetwork, activaFn[$selActivaFn_store])
@@ -206,6 +208,6 @@
   }
 </script>
 
-<div class="rounded-lg w-full border-base-content/20 b-1 shadow-2xl">
-  <canvas class="w-full" id="functionChart"></canvas>
+<div class="rounded-lg w-full sm:aspect-[18/9] aspect-[4/3] border-base-content/20 b-1 shadow-2xl relative">
+  <canvas id="functionChart"></canvas>
 </div>

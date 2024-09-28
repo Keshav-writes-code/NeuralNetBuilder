@@ -15,17 +15,17 @@ import NN_IOgraph from '../components/NN_comps/NN_IOgraph.svelte';
 		<title>Astro</title>
 	</head>
 	<body class="w-full grid place-items-center" >
-		<main class="w-full grid place-items-center *:sm:px-10 *:px-5 py-10">
+		<main class="w-full grid place-items-center *:sm:px-10 *:px-5 sm:py-10 py-5">
 			<section
-			  class="w-full flex gap-20 xl:flex-row flex-col-reverse justify-between items-center"
+			  class="w-full flex sm:gap-20 gap-5 xl:flex-row flex-col-reverse justify-between items-center"
 			>
 			  <NN_parameters  client:visible/>
 			  <NN_IOgraph  client:visible/>
 			</section>
-			<section class=" w-full 2xl:max-w-[1530px] max-w-90vw mt-10">
-			<div class="divider max-w-50% mx-auto "></div>		  
-			<NN_specs client:visible/>
-			<NN_layers client:visible/>
+			<section class=" w-full 2xl:max-w-[1530px] max-w-90vw sm:mt-10 mt-2">
+        <div class="divider max-w-50% mx-auto "></div>		  
+        <NN_specs client:visible/>
+        <NN_layers client:visible/>
 			</section>
     </main>
 	</body>

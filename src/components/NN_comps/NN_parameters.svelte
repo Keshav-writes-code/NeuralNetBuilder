@@ -35,9 +35,9 @@
             .bias}</span
         >
         <span class="label-text-alt justify-self-end flex items-center gap-1">
-          <input type="text" placeholder="Type here" class=" text-center badge badge-neutral badge-lg w-[3.5rem]" bind:value={biasRangeMin} />
-          to
-          <input type="text" placeholder="Type here" class=" text-center badge badge-neutral badge-lg w-[3.5rem]" bind:value={biasRangeMax} />
+          <input type="text" placeholder="Type here" class=" text-center badge badge-neutral badge-lg sm:w-3.5rem w-2.5rem sm:px-2 px-0" bind:value={biasRangeMin} />
+          <span class="sm:block hidden" >to</span>
+          <input type="text" placeholder="Type here" class=" text-center badge badge-neutral badge-lg sm:w-3.5rem w-2.5rem sm:px-2 px-0" bind:value={biasRangeMax} />
         </span>
       </div>
       <input
@@ -95,9 +95,9 @@
               ].weights[i]}</span
             >
             <span class="label-text-alt justify-self-end gap-1 flex items-center ">
-              <input type="text" placeholder="Type here" class=" text-center badge badge-neutral badge-lg w-[3rem]" bind:value={wieghtRangeMin} />
-              to
-              <input type="text" placeholder="Type here" class=" text-center badge badge-neutral badge-lg w-[3rem]" bind:value={wieghtRangeMax} />
+              <input type="text" placeholder="Type here" class=" text-center badge badge-neutral badge-lg sm:w-3rem w-2.3rem sm:px-2 px-0" bind:value={wieghtRangeMin} />
+              <span class="sm:block hidden" >to</span>
+              <input type="text" placeholder="Type here" class=" text-center badge badge-neutral badge-lg sm:w-3rem w-2.3rem sm:px-2 px-0" bind:value={wieghtRangeMax} />
             </span>
           </div>
           <input

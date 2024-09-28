@@ -17,29 +17,41 @@
 </script>
 
 <div
-  class="rounded-lg border-neutral b-1 w-full max-w-xl p-10 shadow-2xl relative h-min"
+  class="rounded-lg border-neutral b-1 w-full max-w-xl sm:p-10 p-5 shadow-2xl relative h-min"
 >
-  {#if $currentNeuron_store}
-    <div class="text-2xl">
+  <div class="text-2xl ">
+    {#if $currentNeuron_store}
       Neuron
       <div class="badge badge-lg text-xl badge-neutral">
         {$currentNeuron_store.idx + 1}:{$currentNeuron_store.idy + 1}
       </div>
-    </div>
+    {:else}
+      <h1 class="sm:text-2xl font-bold">Select a Neuron</h1>
+    {/if}
+  </div>
 
-    <label class="form-control">
-      <div class="label grid grid-cols-[1fr_auto_1fr]">
-        <span class="label-text">Bias</span>
-        <span class="label-text-alt"
-          >Value = {$hidOutLayers_store[$currentNeuron_store.idx].neurons[$currentNeuron_store.idy]
-            .bias}</span
-        >
+  <label class="form-control">
+    <div class="label grid grid-cols-[1fr_auto_1fr]">
+      <span class="label-text {$currentNeuron_store?'':'opacity-50'}">Bias</span>
+      {#if $currentNeuron_store}
+        <span class="label-text-alt">
+          Value = {$hidOutLayers_store[$currentNeuron_store.idx].neurons[$currentNeuron_store.idy].bias}
+        </span>
+      {:else}
+        <span class="label-text-alt  opacity-50">Value = Nothing</span>
+      {/if}
+      
+      {#if $currentNeuron_store}
         <span class="label-text-alt justify-self-end flex items-center gap-1">
           <input type="text" placeholder="Type here" class=" text-center badge badge-neutral badge-lg sm:w-3.5rem w-2.5rem sm:px-2 px-0" bind:value={biasRangeMin} />
           <span class="sm:block hidden" >to</span>
           <input type="text" placeholder="Type here" class=" text-center badge badge-neutral badge-lg sm:w-3.5rem w-2.5rem sm:px-2 px-0" bind:value={biasRangeMax} />
         </span>
-      </div>
+      {:else}
+        <span class="label-text-alt justify-self-end  opacity-50">-∞ to ∞</span>
+      {/if}
+    </div>
+    {#if $currentNeuron_store}
       <input
         type="range"
         min={biasRangeMin}
@@ -61,27 +73,19 @@
           }
           lastTap = currentTime;
         }}
+        
       />
-    </label>
-  {:else}
-    <h1 class="text-2xl">Select a Neuron</h1>
-    <label class="form-control opacity-50">
-      <div class="label grid grid-cols-[1fr_auto_1fr]">
-        <span class="label-text">Bias</span>
-        <span class="label-text-alt">Value = Nothing</span>
-        <span class="label-text-alt justify-self-end">-∞ to ∞</span>
-      </div>
+    {:else}
       <input
         type="range"
         min="-10"
         max="10"
         step="0.01"
-        class="range range-lg w-full"
+        class="range range-lg w-full opacity-50"
         disabled
       />
-    </label>
-  {/if}
-
+    {/if}
+  </label>
   <div class="divider"></div>
   <div class="max-h-300px overflow-y-auto">
     {#if $currentNeuron_store}

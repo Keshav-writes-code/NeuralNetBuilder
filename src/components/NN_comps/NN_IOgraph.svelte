@@ -40,10 +40,6 @@
     $hiddenLayersNeuronCount_store[$hiddenLayersNeuronCount_store.length - 1]
   );
 
-  // Hidden & Output Layer Combined
-
-  
-
   // ---------------------------------------
   // -------------- Plotting ---------------
   // ---------------------------------------

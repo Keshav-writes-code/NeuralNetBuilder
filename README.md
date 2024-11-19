@@ -6,3 +6,6 @@ Just a Basic 1 in 1 out Neural Net Playground nothing too fancy
 - [ ] Make the graph animate on X axis changes
 - [ ] Improve the NN function's algo
 - [ ] Fix Starfiled not showing
+
+## Demo
+![keshav-writes-code github io_NeuralNetBuilder_](https://github.com/user-attachments/assets/5c9904c5-2ef1-4612-92c5-6cf4fe617ae1)

@@ -8,4 +8,5 @@ Just a Basic 1 in 1 out Neural Net Playground nothing too fancy
 - [ ] Fix Starfiled not showing
 
 ## Demo
-![keshav-writes-code github io_NeuralNetBuilder_](https://github.com/user-attachments/assets/5c9904c5-2ef1-4612-92c5-6cf4fe617ae1)
+
+![keshav-writes-code github io_NeuralNetBuilder_ (1)](https://github.com/user-attachments/assets/3377c527-1d19-489f-a9d2-5162fae71d77)

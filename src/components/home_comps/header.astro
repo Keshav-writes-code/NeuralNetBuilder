@@ -1,24 +1,4 @@
 ---
-import { Icon } from "astro-icon/components";
-
-const icons = [
-  {
-    icon:"logomark",
-    link:"https://astro.build/",
-  },
-  {
-    icon: "frameworks/svelte",
-    link: "https://svelte.dev/"
-  },
-  {
-    icon: "frameworks/unocss",
-    link: "https://unocss.dev/"
-  },
-  {
-    icon: "frameworks/daisy",
-    link: "https://daisyui.com/"
-  }
-]
 ---
 
 <header
@@ -28,12 +8,18 @@ const icons = [
   <div class="grid grid-flow-col gap-4 place-items-center" >
     <p class="font-bold">Built With</p>
 
-    {icons.map((item) => (
-      // make it open in a new page
-      <a class="flex items-center gap-3 hover:!text-default" href={item.link} target="_blank">
-        <Icon name={item.icon} class="size-10" />
-      </a>
-    ))}
+    <a class="flex items-center gap-3 hover:!text-default" href="https://astro.build/" target="_blank">
+      <div class="i-vscode-icons:file-type-astro size-12"></div>
+    </a>
+    <a class="flex items-center gap-3 hover:!text-default" href="https://svelte.dev/" target="_blank">
+      <div class="i-vscode-icons:file-type-svelte size-12"></div>
+    </a>
+    <a class="flex items-center gap-3 hover:!text-default" href="https://unocss.dev/" target="_blank">
+      <div class="i-vscode-icons:file-type-unocss size-12"></div>
+    </a>
+    <a class="flex items-center gap-3 hover:!text-default" href="https://daisyui.com/" target="_blank">
+      <div class="i-logos:daisyui-icon size-12"></div>
+    </a>
   </div>
   
 </header>

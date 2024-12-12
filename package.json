@@ -24,12 +24,17 @@
     "unocss-preset-daisy": "^7.0.0"
   },
   "devDependencies": {
+    "@iconify-json/logos": "^1.2.3",
+    "@iconify-json/vscode-icons": "^1.2.4",
+    "@iconify-json/lucide": "^1.2.18",
+    "@iconify-json/tabler": "^1.2.11",
+    "@iconify-json/typcn": "^1.2.1",
     "@types/micromodal": "^0.3.5",
+    "@unocss/preset-icons": "^0.65.1",
     "@unocss/preset-mini": "^0.62.4",
     "@unocss/reset": "^0.62.4",
     "@unocss/transformer-variant-group": "^0.62.4",
     "astro": "^4.15.7",
-    "astro-icon": "^1.1.1",
     "unocss": "^0.62.4"
   }
 }

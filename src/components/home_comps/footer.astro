@@ -1,5 +1,4 @@
 ---
-import { Icon } from "astro-icon/components";
 import HeroImage from "./hero-image.astro";
 import type { FooterLink } from "../../types.ts";
 
@@ -31,7 +30,7 @@ const links: Array<FooterLink> = [
             target="_blank"
           >
             <span class="sr-only">{link.description}</span>
-            <Icon class="size-full" name={link.icon} />
+            <div class="i-logos:svelte-icon"></div>
           </a>
         </li>
       ))

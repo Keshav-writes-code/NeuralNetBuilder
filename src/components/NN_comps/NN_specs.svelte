@@ -59,7 +59,7 @@
               }
             }}
           >
-            <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14"></path> </svg>
+            <div class="i-tabler-minus size-4.5"></div>
           </button>
           <input
             class="p-0 w-6 bg-transparent border-0 text-center focus:ring-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none text-white"
@@ -85,7 +85,7 @@
               }
             }}
           >
-            <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14"></path> <path d="M12 5v14"></path> </svg>
+            <div class="i-tabler-plus size-4.5"></div>
           </button>
         </div>
       </div>
@@ -96,7 +96,7 @@
     <div class="dropdown ">
       <div tabindex="0" role="button" class="btn">
         {$selActivaFn_store}
-        <svg width="12px" height="12px" class="inline-block h-2 w-2 fill-current opacity-60" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048" > <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z" ></path> </svg>
+        <div class="i-tabler:chevron-down size-5"></div>
       </div>
       <ul
         class="dropdown-content bg-base-300 rounded-box z-[1] p-2 shadow-2xl"

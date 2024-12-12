@@ -32,25 +32,7 @@
     </div>
     <div class=""></div>
     <button class="btn btn-success size-min" disabled>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="lucide lucide-codesandbox"
-        ><path
-          d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
-        /><polyline points="7.5 4.21 12 6.81 16.5 4.21" /><polyline
-          points="7.5 19.79 7.5 14.6 3 12"
-        /><polyline points="21 12 16.5 14.6 16.5 19.79" /><polyline
-          points="3.27 6.96 12 12.01 20.73 6.96"
-        /><line x1="12" x2="12" y1="22.08" y2="12" /></svg
-      >
+      <div class="i-lucide:codesandbox size-6" ></div>
     </button>
   </div>
   <div class="divider divider-horizontal"></div>
@@ -77,20 +59,7 @@
                   })
                   : _}
             >
-              <svg
-                class="shrink-0 size-3.5"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M5 12h14"></path>
-              </svg>
+              <div class="i-tabler-minus size-4.5"></div>
             </button>
             <input
               class="p-0 w-6 bg-transparent border-0 text-center focus:ring-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none text-white"
@@ -118,20 +87,7 @@
                   })
                   : _}
             >
-              <svg
-                class="shrink-0 size-3.5"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M5 12h14"></path> <path d="M12 5v14"></path>
-              </svg>
+              <div class="i-tabler-plus size-4.5"></div>
             </button>
           </div>
         </div>
@@ -147,25 +103,7 @@
               currentNeuron_store.set(new cNeuron(i, i2));
             }}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-codesandbox"
-              ><path
-                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
-              /><polyline points="7.5 4.21 12 6.81 16.5 4.21" /><polyline
-                points="7.5 19.79 7.5 14.6 3 12"
-              /><polyline points="21 12 16.5 14.6 16.5 19.79" /><polyline
-                points="3.27 6.96 12 12.01 20.73 6.96"
-              /><line x1="12" x2="12" y1="22.08" y2="12" /></svg
-            >
+            <div class="i-lucide:codesandbox size-6" ></div>
           </label>
         </div>
         
@@ -196,25 +134,7 @@
     </div>
     <div class="divider"></div>
     <button class="btn btn-success size-min" disabled>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="lucide lucide-codesandbox"
-        ><path
-          d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
-        /><polyline points="7.5 4.21 12 6.81 16.5 4.21" /><polyline
-          points="7.5 19.79 7.5 14.6 3 12"
-        /><polyline points="21 12 16.5 14.6 16.5 19.79" /><polyline
-          points="3.27 6.96 12 12.01 20.73 6.96"
-        /><line x1="12" x2="12" y1="22.08" y2="12" /></svg
-      >
+      <div class="i-lucide:codesandbox size-6" ></div>
     </button>
   </div>
 </div>

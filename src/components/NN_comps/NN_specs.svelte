@@ -91,11 +91,11 @@
       </div>
     </div>
   </div>
-  <div class="w-130px ">
+  <div class="">
     <p class="text-gray-400 text-sm"> Activation Function </p>
     <div class="dropdown ">
-      <div tabindex="0" role="button" class="btn">
-        {$selActivaFn_store}
+      <div tabindex="0" role="button" class="btn flex w-34 justify-between">
+        <p class="text-center flex-1" >{$selActivaFn_store}</p>
         <div class="i-tabler:chevron-down size-5"></div>
       </div>
       <ul

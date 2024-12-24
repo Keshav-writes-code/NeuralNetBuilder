@@ -149,3 +149,8 @@
     {/if}
   </div>
 </div>
+<style>
+  ::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+  }
+</style>

@@ -1,6 +1,7 @@
 <script lang="ts">
   import {Layer} from './NN_classes.ts'
   import { currentNeuron_store, hidOutLayers_store } from "../store.ts";
+  import autoAnimate from "@formkit/auto-animate"
 
   function updateNet(hidOutLayers: Layer[]) {
     hidOutLayers_store.set(hidOutLayers);
@@ -87,7 +88,7 @@
     {/if}
   </label>
   <div class="divider"></div>
-  <div class="max-h-300px overflow-y-auto">
+  <div class="max-h-300px overflow-y-auto overflow-x-clip " use:autoAnimate>
     {#if $currentNeuron_store}
       {#each $hidOutLayers_store[$currentNeuron_store.idx].neurons[$currentNeuron_store.idy].weights as _, i}
         <label class="form-control">

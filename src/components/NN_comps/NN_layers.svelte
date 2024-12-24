@@ -5,6 +5,7 @@
     hiddenLayersNeuronCount_store,
     currentNeuron_store,
   } from "../store.ts";
+  import autoAnimate from "@formkit/auto-animate"
 </script>
 
 <div
@@ -36,9 +37,9 @@
     </button>
   </div>
   <div class="divider divider-horizontal"></div>
-  <div class="flex gap-8">
+  <div class="flex gap-8" use:autoAnimate>
     {#each { length: $hiddenLayersCount_store } as _, i}
-      <div class=" flex flex-col gap-2 items-center">
+      <div class=" flex flex-col gap-2 items-center" use:autoAnimate>
         <div
           class="touch-manipulation py-2 px-3 inline-block border rounded-lg bg-neutral-900 border-neutral"
           data-hs-input-number=""
@@ -92,7 +93,7 @@
           </div>
         </div>
         <div class="divider"></div>
-        {#each { length: $hiddenLayersNeuronCount_store[i] } as _, i2}
+        {#each { length: $hiddenLayersNeuronCount_store[i] } as _, i2 }
         <div class="flex flex-col">
           <input id="neuron{i}{i2}" type="radio" class="peer hidden "  name="neurons" >
           <label for="neuron{i}{i2}" class="btn peer-checked:*:stroke-#fff btn-success touch-manipulation size-min hover:scale-103 peer-checked:bg-#36d39944 group "

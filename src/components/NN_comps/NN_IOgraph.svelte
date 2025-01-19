@@ -185,6 +185,6 @@
   }
 </script>
 
-<div class="rounded-lg w-full sm:aspect-[18/9] aspect-[4/3] border-base-content/20 b-1 shadow-2xl relative">
+<div class="rounded-btn w-full sm:aspect-[18/9] aspect-[4/3] border-base-content/20 b-1 shadow-2xl relative">
   <canvas id="functionChart"></canvas>
 </div>

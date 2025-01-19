@@ -36,7 +36,7 @@
 </script>
 
 <div
-  class="mx-auto w-max rounded-lg grid sm:grid-cols-3 grid-cols-2  sm:gap-12 gap-5 mb-4 *:flex *:flex-col *:justify-between *:h-full *:gap-2"
+  class="mx-auto w-max rounded-btn grid sm:grid-cols-3 grid-cols-2  sm:gap-12 gap-5 mb-4 *:flex *:flex-col *:justify-between *:h-full *:gap-2"
 >
   <div class="">
     <p class="text-gray-400 text-sm" > Hidden layers </p>

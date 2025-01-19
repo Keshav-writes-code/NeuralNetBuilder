@@ -9,7 +9,7 @@
 </script>
 
 <div
-  class="sm:gap-8 h-739px shadow-2xl border-base-content/20 b-1 py-8 sm:px-10 px-6 rounded-lg overflow-x-auto w-full grid grid-cols-[auto_auto_1fr_auto_auto] "
+  class="sm:gap-8 h-739px shadow-2xl border-base-content/20 b-1 py-8 sm:px-10 px-6 rounded-btn overflow-x-auto w-full grid grid-cols-[auto_auto_1fr_auto_auto] "
 >
   <div class=" flex flex-col gap-2 items-center">
     <div
@@ -41,7 +41,7 @@
     {#each { length: $hiddenLayersCount_store } as _, i}
       <div class=" flex flex-col gap-2 items-center" use:autoAnimate>
         <div
-          class="touch-manipulation py-2 px-3 inline-block border rounded-lg bg-neutral-900 border-neutral"
+          class="touch-manipulation py-2 px-3 inline-block border rounded-btn bg-neutral-900 border-neutral"
           data-hs-input-number=""
         >
           <div class="flex items-center gap-x-1.5">

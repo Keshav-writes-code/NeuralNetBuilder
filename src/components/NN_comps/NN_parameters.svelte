@@ -1,7 +1,7 @@
 <script lang="ts">
-  import {Layer} from './NN_classes.ts'
+  import { Layer } from "./NN_classes.ts";
   import { currentNeuron_store, hidOutLayers_store } from "../store.ts";
-  import autoAnimate from "@formkit/auto-animate"
+  import autoAnimate from "@formkit/auto-animate";
 
   function updateNet(hidOutLayers: Layer[]) {
     hidOutLayers_store.set(hidOutLayers);
@@ -9,10 +9,10 @@
 
   $: updateNet($hidOutLayers_store);
 
-  let biasRangeMax: number = 100
-  let biasRangeMin: number = -100
-  let wieghtRangeMax: number = 1
-  let wieghtRangeMin: number = -1
+  let biasRangeMax: number = 30;
+  let biasRangeMin: number = -30;
+  let wieghtRangeMax: number = 1;
+  let wieghtRangeMin: number = -1;
 
   let lastTap = 0;
 </script>
@@ -20,7 +20,7 @@
 <div
   class="rounded-btn border-neutral b-1 w-full max-w-xl sm:p-10 p-5 shadow-2xl relative h-min"
 >
-  <div class="text-2xl ">
+  <div class="text-2xl">
     {#if $currentNeuron_store}
       Neuron
       <div class="badge badge-lg text-xl badge-neutral">
@@ -33,23 +33,37 @@
 
   <label class="form-control">
     <div class="label grid grid-cols-[1fr_auto_1fr]">
-      <span class="label-text {$currentNeuron_store?'':'opacity-50'}">Bias</span>
+      <span class="label-text {$currentNeuron_store ? '' : 'opacity-50'}"
+        >Bias</span
+      >
       {#if $currentNeuron_store}
         <span class="label-text-alt">
-          Value = {$hidOutLayers_store[$currentNeuron_store.idx].neurons[$currentNeuron_store.idy].bias}
+          Value = {$hidOutLayers_store[$currentNeuron_store.idx].neurons[
+            $currentNeuron_store.idy
+          ].bias}
         </span>
       {:else}
-        <span class="label-text-alt  opacity-50">Value = Nothing</span>
+        <span class="label-text-alt opacity-50">Value = Nothing</span>
       {/if}
-      
+
       {#if $currentNeuron_store}
         <span class="label-text-alt justify-self-end flex items-center gap-1">
-          <input type="text" placeholder="Type here" class=" text-center badge badge-neutral badge-lg sm:w-3.5rem w-2.5rem sm:px-2 px-0" bind:value={biasRangeMin} />
-          <span class="sm:block hidden" >to</span>
-          <input type="text" placeholder="Type here" class=" text-center badge badge-neutral badge-lg sm:w-3.5rem w-2.5rem sm:px-2 px-0" bind:value={biasRangeMax} />
+          <input
+            type="text"
+            placeholder="Type here"
+            class=" text-center badge badge-neutral badge-lg sm:w-3.5rem w-2.5rem sm:px-2 px-0"
+            bind:value={biasRangeMin}
+          />
+          <span class="sm:block hidden">to</span>
+          <input
+            type="text"
+            placeholder="Type here"
+            class=" text-center badge badge-neutral badge-lg sm:w-3.5rem w-2.5rem sm:px-2 px-0"
+            bind:value={biasRangeMax}
+          />
         </span>
       {:else}
-        <span class="label-text-alt justify-self-end  opacity-50">-∞ to ∞</span>
+        <span class="label-text-alt justify-self-end opacity-50">-∞ to ∞</span>
       {/if}
     </div>
     {#if $currentNeuron_store}
@@ -59,22 +73,27 @@
         max={biasRangeMax}
         step="0.01"
         class="range range-lg w-full"
-        bind:value={$hidOutLayers_store[$currentNeuron_store.idx].neurons[$currentNeuron_store.idy]
-          .bias}
+        bind:value={$hidOutLayers_store[$currentNeuron_store.idx].neurons[
+          $currentNeuron_store.idy
+        ].bias}
         on:dblclick={() => {
-          if (!$currentNeuron_store) return
-          $hidOutLayers_store[$currentNeuron_store.idx].neurons[$currentNeuron_store.idy].bias = 0
+          if (!$currentNeuron_store) return;
+          $hidOutLayers_store[$currentNeuron_store.idx].neurons[
+            $currentNeuron_store.idy
+          ].bias = 0;
         }}
         on:touchend={() => {
-          if (!$currentNeuron_store) return
+          if (!$currentNeuron_store) return;
           const currentTime = new Date().getTime();
           const tapLength = currentTime - lastTap;
-          if (tapLength < 200 && tapLength > 0) { // Adjust the interval as needed
-            $hidOutLayers_store[$currentNeuron_store.idx].neurons[$currentNeuron_store.idy].bias = 0
+          if (tapLength < 200 && tapLength > 0) {
+            // Adjust the interval as needed
+            $hidOutLayers_store[$currentNeuron_store.idx].neurons[
+              $currentNeuron_store.idy
+            ].bias = 0;
           }
           lastTap = currentTime;
         }}
-        
       />
     {:else}
       <input
@@ -88,7 +107,7 @@
     {/if}
   </label>
   <div class="divider"></div>
-  <div class="max-h-300px overflow-y-auto overflow-x-clip " use:autoAnimate>
+  <div class="max-h-300px overflow-y-auto overflow-x-clip" use:autoAnimate>
     {#if $currentNeuron_store}
       {#each $hidOutLayers_store[$currentNeuron_store.idx].neurons[$currentNeuron_store.idy].weights as _, i}
         <label class="form-control">
@@ -99,10 +118,22 @@
                 $currentNeuron_store.idy
               ].weights[i]}</span
             >
-            <span class="label-text-alt justify-self-end gap-1 flex items-center ">
-              <input type="text" placeholder="Type here" class=" text-center badge badge-neutral badge-lg sm:w-3rem w-2.3rem sm:px-2 px-0" bind:value={wieghtRangeMin} />
-              <span class="sm:block hidden" >to</span>
-              <input type="text" placeholder="Type here" class=" text-center badge badge-neutral badge-lg sm:w-3rem w-2.3rem sm:px-2 px-0" bind:value={wieghtRangeMax} />
+            <span
+              class="label-text-alt justify-self-end gap-1 flex items-center"
+            >
+              <input
+                type="text"
+                placeholder="Type here"
+                class=" text-center badge badge-neutral badge-lg sm:w-3rem w-2.3rem sm:px-2 px-0"
+                bind:value={wieghtRangeMin}
+              />
+              <span class="sm:block hidden">to</span>
+              <input
+                type="text"
+                placeholder="Type here"
+                class=" text-center badge badge-neutral badge-lg sm:w-3rem w-2.3rem sm:px-2 px-0"
+                bind:value={wieghtRangeMax}
+              />
             </span>
           </div>
           <input
@@ -115,15 +146,20 @@
               $currentNeuron_store.idy
             ].weights[i]}
             on:dblclick={() => {
-              if (!$currentNeuron_store) return
-              $hidOutLayers_store[$currentNeuron_store.idx].neurons[$currentNeuron_store.idy].weights[i] = 0
+              if (!$currentNeuron_store) return;
+              $hidOutLayers_store[$currentNeuron_store.idx].neurons[
+                $currentNeuron_store.idy
+              ].weights[i] = 0;
             }}
             on:touchend={() => {
-              if (!$currentNeuron_store) return
+              if (!$currentNeuron_store) return;
               const currentTime = new Date().getTime();
               const tapLength = currentTime - lastTap;
-              if (tapLength < 300 && tapLength > 0) { // Adjust the interval as needed
-                $hidOutLayers_store[$currentNeuron_store.idx].neurons[$currentNeuron_store.idy].weights[i] = 0              
+              if (tapLength < 300 && tapLength > 0) {
+                // Adjust the interval as needed
+                $hidOutLayers_store[$currentNeuron_store.idx].neurons[
+                  $currentNeuron_store.idy
+                ].weights[i] = 0;
               }
               lastTap = currentTime;
             }}
@@ -149,8 +185,10 @@
     {/if}
   </div>
 </div>
+
 <style>
   ::-webkit-scrollbar {
-    width: 0;  /* Remove scrollbar space */
+    width: 0; /* Remove scrollbar space */
   }
 </style>
+

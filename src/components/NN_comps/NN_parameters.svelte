@@ -1,18 +1,10 @@
 <script lang="ts">
-  import { Layer } from "./NN_classes.ts";
   import { currentNeuron_store, hidOutLayers_store } from "../store.ts";
   import autoAnimate from "@formkit/auto-animate";
-
-  function updateNet(hidOutLayers: Layer[]) {
-    hidOutLayers_store.set(hidOutLayers);
-  }
-
-  $: updateNet($hidOutLayers_store);
-
-  let biasRangeMax: number = 30;
-  let biasRangeMin: number = -30;
-  let wieghtRangeMax: number = 1;
-  let wieghtRangeMin: number = -1;
+  let biasRangeMax: number = $state(30);
+  let biasRangeMin: number = $state(-30);
+  let wieghtRangeMax: number = $state(1);
+  let wieghtRangeMin: number = $state(-1);
 
   let lastTap = 0;
 </script>
@@ -76,13 +68,13 @@
         bind:value={$hidOutLayers_store[$currentNeuron_store.idx].neurons[
           $currentNeuron_store.idy
         ].bias}
-        on:dblclick={() => {
+        ondblclick={() => {
           if (!$currentNeuron_store) return;
           $hidOutLayers_store[$currentNeuron_store.idx].neurons[
             $currentNeuron_store.idy
           ].bias = 0;
         }}
-        on:touchend={() => {
+        ontouchend={() => {
           if (!$currentNeuron_store) return;
           const currentTime = new Date().getTime();
           const tapLength = currentTime - lastTap;
@@ -145,13 +137,13 @@
             bind:value={$hidOutLayers_store[$currentNeuron_store.idx].neurons[
               $currentNeuron_store.idy
             ].weights[i]}
-            on:dblclick={() => {
+            ondblclick={() => {
               if (!$currentNeuron_store) return;
               $hidOutLayers_store[$currentNeuron_store.idx].neurons[
                 $currentNeuron_store.idy
               ].weights[i] = 0;
             }}
-            on:touchend={() => {
+            ontouchend={() => {
               if (!$currentNeuron_store) return;
               const currentTime = new Date().getTime();
               const tapLength = currentTime - lastTap;
@@ -191,4 +183,3 @@
     width: 0; /* Remove scrollbar space */
   }
 </style>
-

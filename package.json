@@ -35,7 +35,6 @@
     "@unocss/reset": "^65.4.3",
     "@unocss/transformer-variant-group": "^65.4.3",
     "astro": "5.1.8",
-    "unocss": "^65.4.3",
-    "unocss-preset-animations": "^1.1.1"
+    "unocss": "^65.4.3"
   }
 }

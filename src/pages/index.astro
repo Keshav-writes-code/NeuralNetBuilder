@@ -30,3 +30,30 @@ import NN_IOgraph from '../components/NN_comps/NN_IOgraph.svelte';
     </main>
 	</body>
 </html>
+<script>
+import { af_enum } from "../components/NN_comps/NN_classes"
+import { getPreference } from "../lib/db/localStorage"
+const activaFunc = getPreference<af_enum>("activation_function") || af_enum.relu
+const activationFns = [
+  {
+    name: af_enum.relu,
+    theme: "business",
+  },
+  {
+    name: af_enum.sigmoid,
+    theme: "dark",
+  },
+  {
+    name: af_enum.tanh,
+    theme: "forest",
+  },
+  {
+    name: af_enum.binary,
+    theme: "black",
+  },
+];
+document.documentElement.setAttribute(
+  "data-theme",
+  activationFns.find((fn) => fn.name == activaFunc)?.theme || "",
+);
+</script>

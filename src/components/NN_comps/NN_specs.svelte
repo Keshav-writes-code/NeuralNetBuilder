@@ -124,6 +124,7 @@
           <li class="flex justify-between items-center w-full gap-2">
             <input
               type="radio"
+              checked={activaFn.name == $selActivaFn_store}
               name="theme-dropdown"
               class="theme-controller btn btn-sm btn-block btn-ghost justify-start flex-1"
               aria-label={activaFn.name}

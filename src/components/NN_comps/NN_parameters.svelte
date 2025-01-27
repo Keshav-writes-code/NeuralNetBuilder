@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { fade, slide } from "svelte/transition";
+  import { slide } from "svelte/transition";
   import { currentNeuron_store, hidOutLayers_store } from "../store.ts";
   let biasRangeMax: number = $state(30);
   let biasRangeMin: number = $state(-30);

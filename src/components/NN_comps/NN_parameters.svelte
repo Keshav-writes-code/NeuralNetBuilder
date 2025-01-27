@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { fade, slide } from "svelte/transition";
   import { currentNeuron_store, hidOutLayers_store } from "../store.ts";
   import autoAnimate from "@formkit/auto-animate";
   let biasRangeMax: number = $state(30);
@@ -99,10 +100,10 @@
     {/if}
   </label>
   <div class="divider"></div>
-  <div class="max-h-300px overflow-y-auto overflow-x-clip" use:autoAnimate>
+  <div class="max-h-300px overflow-y-auto overflow-x-clip">
     {#if $currentNeuron_store}
       {#each $hidOutLayers_store[$currentNeuron_store.idx].neurons[$currentNeuron_store.idy].weights as _, i}
-        <label class="form-control">
+        <label class="form-control" transition:slide={{ delay: 10 * i * 2 }}>
           <div class="label grid grid-cols-[1fr_auto_1fr]">
             <span class="label-text">Weight {i + 1}</span>
             <span class="label-text-alt"

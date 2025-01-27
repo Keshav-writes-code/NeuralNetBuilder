@@ -112,7 +112,7 @@
             />
             <label
               for="neuron{i}{i2}"
-              class="btn peer-checked:*:stroke-#fff btn-success touch-manipulation size-min hover:scale-103 peer-checked:bg-#36d39944 group"
+              class="btn peer-checked:*:color-#fff color-neutral btn-success touch-manipulation size-min hover:scale-103 peer-checked:bg-#36d39944 group"
               onclick={() => {
                 if (!$currentNeuron_store == null) {
                   currentNeuron_store.set(new cNeuron(0, 0));

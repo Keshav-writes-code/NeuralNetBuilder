@@ -1,7 +1,6 @@
 <script lang="ts">
   // Implement Theme CHanger BY
   // Changing the html tag  data-theme attribute on each select menu click
-
   import { af_enum } from "./NN_classes.ts";
   import {
     hiddenLayersCount_store,
@@ -10,7 +9,12 @@
     randomisedVals_store,
   } from "../store.ts";
   import { setPreference } from "../../lib/db/localStorage.ts";
+  import { onMount } from "svelte";
 
+  let loading = $state(true);
+  onMount(() => {
+    loading = false;
+  });
   const activationFns = [
     {
       name: af_enum.relu,
@@ -101,9 +105,17 @@
   <div class="">
     <p class="text-gray-400 text-sm">Activation Function</p>
     <div class="dropdown">
-      <div tabindex="0" role="button" class="btn flex w-34 justify-between">
-        <p class="text-center flex-1">{$selActivaFn_store}</p>
-        <div class="i-tabler:chevron-down size-5"></div>
+      <div
+        tabindex="0"
+        role="button"
+        class=" btn flex w-34 justify-between {loading ? 'skeleton ' : ''}"
+      >
+        <p class="text-center flex-1 {loading ? 'hidden' : ''} ">
+          {$selActivaFn_store}
+        </p>
+        <div
+          class="i-tabler:chevron-down size-5 {loading ? 'hidden' : ''} "
+        ></div>
       </div>
       <ul class="dropdown-content bg-base-300 rounded-box z-[1] p-2 shadow-2xl">
         {#each activationFns as activaFn}
@@ -128,7 +140,7 @@
     <p class="text-gray-400 text-sm">Randomised?</p>
     <input
       type="checkbox"
-      class="toggle toggle-lg"
+      class="toggle toggle-lg w-16 h-8"
       bind:checked={$randomisedVals_store}
     />
   </div>

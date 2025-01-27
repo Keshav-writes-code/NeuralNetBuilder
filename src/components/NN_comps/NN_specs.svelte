@@ -9,6 +9,7 @@
     selActivaFn_store,
     randomisedVals_store,
   } from "../store.ts";
+  import { setPreference } from "../../lib/db/localStorage.ts";
 
   const activationFns = [
     {
@@ -32,6 +33,13 @@
       svg: `<svg class="h-4 w-min stroke-neutral " xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300" zoomAndPan="magnify" viewBox="0 0 224.87999 149.999998" height="200" preserveAspectRatio="xMidYMid meet" version="1.0"><defs><clipPath id="bdae80a56a"><path d="M 0 0.0390625 L 224.761719 0.0390625 L 224.761719 149.960938 L 0 149.960938 Z M 0 0.0390625 " clip-rule="nonzero"/></clipPath></defs><g clip-path="url(#bdae80a56a)"><path stroke-linecap="butt" transform="matrix(0.7496, 0, 0, 0.7496, 0, -1.459196)" fill="none" stroke-linejoin="miter" d="M 299.998567 21.998996 L 150.001889 21.998996 L 150.001889 182.001011 L 0 182.001011 " stroke="inherit" stroke-width="44" stroke-opacity="1" stroke-miterlimit="4"/></g></svg>`,
     },
   ];
+  $effect(() => {
+    setPreference<af_enum>("activation_function", $selActivaFn_store);
+    document.documentElement.setAttribute(
+      "data-theme",
+      activationFns.find((fn) => fn.name == $selActivaFn_store).theme,
+    );
+  });
 </script>
 
 <div
@@ -108,10 +116,6 @@
               value={activaFn.theme}
               onclick={() => {
                 selActivaFn_store.set(activaFn.name);
-                document.documentElement.setAttribute(
-                  "data-theme",
-                  activaFn.theme,
-                );
               }}
             />
             {@html activaFn.svg}

@@ -37,7 +37,7 @@
     setPreference<af_enum>("activation_function", $selActivaFn_store);
     document.documentElement.setAttribute(
       "data-theme",
-      activationFns.find((fn) => fn.name == $selActivaFn_store).theme,
+      activationFns.find((fn) => fn.name == $selActivaFn_store)?.theme || "",
     );
   });
 </script>

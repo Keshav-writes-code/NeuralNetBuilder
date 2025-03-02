@@ -4,6 +4,7 @@ import UnoCSS from "unocss/astro";
 import svelte from "@astrojs/svelte";
 
 export default defineConfig({
+  output: "static",
   integrations: [
     UnoCSS({
       injectReset: true,

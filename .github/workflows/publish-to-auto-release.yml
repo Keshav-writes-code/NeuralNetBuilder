@@ -1,4 +1,4 @@
-name: "publish"
+name: "publish with cross platform binaries"
 
 on:
   push:

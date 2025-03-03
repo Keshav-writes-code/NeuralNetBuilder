@@ -4,7 +4,8 @@ import { defineConfig } from "astro/config";
 import UnoCSS from "unocss/astro";
 import svelte from "@astrojs/svelte";
 
-export default defineConfig({
+const config = {
+  output: "static",
   integrations: [
     UnoCSS({
       injectReset: true,
@@ -12,5 +13,9 @@ export default defineConfig({
     svelte(),
   ],
   site: "https://Keshav-writes-code.github.io",
-  base: "NeuralNetBuilder",
-});
+};
+
+if (!process.env.TAURI_ENV_TARGET_TRIPLE) {
+  config.base = "NeuralNetBuilder";
+}
+export default defineConfig(config);

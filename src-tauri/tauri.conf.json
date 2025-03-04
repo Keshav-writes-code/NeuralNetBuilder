@@ -1,11 +1,11 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-  "productName": "neuralnetbuilder",
-  "version": "0.1.0",
+  "productName": "NeuralNetBuilder",
+  "version": "0.0.1",
   "identifier": "neuralnetbuilder.tauri.dev",
   "build": {
     "frontendDist": "../dist",
-    "devUrl": "http://localhost:4321",
+    "devUrl": "http://localhost:4321/NeuralNetBuilder",
     "beforeDevCommand": "bun dev",
     "beforeBuildCommand": "bun run build"
   },

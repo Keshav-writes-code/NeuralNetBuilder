@@ -62,9 +62,9 @@
 </script>
 
 <div
-  class="mx-auto w-max rounded-btn grid sm:grid-cols-4 grid-cols-2 sm:gap-12 gap-5 gap-x-12 mb-4 *:flex *:flex-col *:justify-between *:h-full *:gap-2"
+  class="mx-auto w-max rounded-btn grid sm:grid-cols-[repeat(4,max-content)] grid-cols-2 sm:gap-12 gap-5 gap-x-12 mb-4 *:flex *:flex-col *:justify-between *:h-full *:gap-2"
 >
-  <div class="items-end">
+  <div class="sm:items-center items-end">
     <p class="text-gray-400 text-sm">Hidden layers</p>
     <div class="relative1 max-w-xs text-gray-300">
       <div
@@ -117,7 +117,7 @@
       </div>
     </div>
   </div>
-  <div class="">
+  <div class="sm:items-center">
     <p class="text-gray-400 text-sm">Activation Function</p>
     <div class="dropdown">
       <div

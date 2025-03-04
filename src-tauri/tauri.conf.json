@@ -5,7 +5,7 @@
   "identifier": "neuralnetbuilder.tauri.dev",
   "build": {
     "frontendDist": "../dist",
-    "devUrl": "http://localhost:4321/NeuralNetBuilder",
+    "devUrl": "http://localhost:4321",
     "beforeDevCommand": "bun dev",
     "beforeBuildCommand": "bun run build"
   },

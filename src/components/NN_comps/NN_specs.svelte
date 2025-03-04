@@ -1,14 +1,19 @@
 <script lang="ts">
   // Implement Theme CHanger BY
   // Changing the html tag  data-theme attribute on each select menu click
-  import { af_enum } from "./NN_classes.ts";
+  import { af_enum, cNeuron, Layer } from "./NN_classes.ts";
   import {
     hiddenLayersCount_store,
     hiddenLayersNeuronCount_store,
     selActivaFn_store,
     randomisedVals_store,
+    hidOutLayers_store,
+    currentNeuron_store,
   } from "../store.ts";
-  import { setPreference } from "../../lib/db/localStorage.ts";
+  import {
+    deleteEverything,
+    setPreference,
+  } from "../../lib/db/localStorage.ts";
   import { onMount } from "svelte";
 
   let loading = $state(true);
@@ -44,12 +49,29 @@
       activationFns.find((fn) => fn.name == $selActivaFn_store)?.theme || "",
     );
   });
+
+  function resetAllParams() {
+    deleteEverything();
+    $hiddenLayersNeuronCount_store = [1];
+    $hiddenLayersCount_store = 1;
+    $selActivaFn_store = af_enum.relu;
+    $randomisedVals_store = false;
+    $hidOutLayers_store.map((layer) => {
+      layer.neurons.map((neuron) => {
+        neuron.bias = 0;
+        neuron.weights.map((weight) => {
+          weight = 0;
+        });
+      });
+    });
+    $currentNeuron_store = new cNeuron(0, 0);
+  }
 </script>
 
 <div
-  class="mx-auto w-max rounded-btn grid sm:grid-cols-3 grid-cols-2 sm:gap-12 gap-5 mb-4 *:flex *:flex-col *:justify-between *:h-full *:gap-2"
+  class="mx-auto w-max rounded-btn grid sm:grid-cols-4 grid-cols-2 sm:gap-12 gap-5 gap-x-12 mb-4 *:flex *:flex-col *:justify-between *:h-full *:gap-2"
 >
-  <div class="">
+  <div class="items-end">
     <p class="text-gray-400 text-sm">Hidden layers</p>
     <div class="relative1 max-w-xs text-gray-300">
       <div
@@ -141,12 +163,18 @@
       </ul>
     </div>
   </div>
-  <div class=" ">
+  <div class="sm:items-center items-end">
     <p class="text-gray-400 text-sm">Randomised?</p>
     <input
       type="checkbox"
       class="toggle toggle-lg w-16 h-8"
       bind:checked={$randomisedVals_store}
     />
+  </div>
+  <div>
+    <p class="text-gray-400 text-sm">Reset All Params</p>
+    <button aria-label="Reset" class="btn" onclick={resetAllParams}>
+      <div class="i-tabler:reload size-7"></div>
+    </button>
   </div>
 </div>

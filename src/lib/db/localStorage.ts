@@ -1,6 +1,10 @@
 const PREFERENCES_KEY = "Preferences";
 const USER_DATA_KEY = "UserData";
 
+export function deleteEverything() {
+  localStorage.removeItem(PREFERENCES_KEY);
+  localStorage.removeItem(USER_DATA_KEY);
+}
 // Utility function to get data from a specific key in localStorage
 const getStorageObject = (key: string): Record<string, unknown> => {
   return JSON.parse(localStorage.getItem(key) || "{}");

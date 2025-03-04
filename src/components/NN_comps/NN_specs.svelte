@@ -56,14 +56,7 @@
     $hiddenLayersCount_store = 1;
     $selActivaFn_store = af_enum.relu;
     $randomisedVals_store = false;
-    $hidOutLayers_store.map((layer) => {
-      layer.neurons.map((neuron) => {
-        neuron.bias = 0;
-        neuron.weights.map((weight) => {
-          weight = 0;
-        });
-      });
-    });
+    $hidOutLayers_store = [new Layer(1, 1)];
     $currentNeuron_store = new cNeuron(0, 0);
   }
 </script>

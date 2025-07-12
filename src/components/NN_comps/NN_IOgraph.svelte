@@ -94,15 +94,13 @@
         maintainAspectRatio: false,
       },
     });
-    NN_sampler.update(
+    NN_sampler.updateOptimized(
       $hidOutLayers_store,
-      neuralNetwork,
-      activaFn[$selActivaFn_store],
+      $selActivaFn_store,
     );
-    currentNeuronOut_sampler.update(
+    currentNeuronOut_sampler.updateOptimized(
       currentNeuronLayers,
-      neuralNetwork,
-      activaFn[$selActivaFn_store],
+      $selActivaFn_store,
     );
     chart.data.datasets[0].data = NN_sampler.y;
     chart.data.datasets[1].data = currentNeuronOut_sampler.y;
@@ -183,10 +181,9 @@
       neurons: [new Neuron(1)],
     });
 
-    currentNeuronOut_sampler.update(
+    currentNeuronOut_sampler.updateOptimized(
       currentNeuronLayers,
-      neuralNetwork,
-      activaFn[$selActivaFn_store],
+      $selActivaFn_store,
     );
     if (chart) {
       chart.data.datasets[1].data = currentNeuronOut_sampler.y;
@@ -196,15 +193,13 @@
 
   // Update NN Graphs when Neural Network Parameters Changes
   $effect(() => {
-    NN_sampler.update(
+    NN_sampler.updateOptimized(
       $hidOutLayers_store,
-      neuralNetwork,
-      activaFn[$selActivaFn_store],
+      $selActivaFn_store,
     );
-    currentNeuronOut_sampler.update(
+    currentNeuronOut_sampler.updateOptimized(
       currentNeuronLayers,
-      neuralNetwork,
-      activaFn[$selActivaFn_store],
+      $selActivaFn_store,
     );
 
     if (chart) {
